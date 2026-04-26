@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELCO India — Lighting Lives, Powering Livelihoods</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0a3d2b;
+    --green-mid: #1a6645;
+    --green-vivid: #22c97a;
+    --green-pale: #d4f5e4;
+    --amber: #f59e1a;
+    --cream: #faf7f2;
+    --ink: #0f1a14;
+    --muted: #5a7062;
+    --border: rgba(34,201,122,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(10,61,43,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(34,201,122,0.2);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    color: var(--green-vivid);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-vivid); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--green-deep);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 2.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-circles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-bg-circles circle { opacity: 0.05; }
+
+  .hero-text { position: relative; z-index: 2; max-width: 560px; }
+
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(34,201,122,0.12);
+    border: 1px solid rgba(34,201,122,0.3);
+    color: var(--green-vivid);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 1.75rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-kicker::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green-vivid);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  h1.hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  h1.hero-title em {
+    color: var(--green-vivid);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.6);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    padding: 13px 28px;
+    background: var(--green-vivid);
+    color: var(--green-deep);
+    font-weight: 500;
+    font-size: 0.88rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,201,122,0.35); }
+  .btn-outline {
+    padding: 13px 28px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--green-vivid); color: var(--green-vivid); }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    padding-left: 4rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(34,201,122,0.2);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .stat-card:hover {
+    border-color: rgba(34,201,122,0.5);
+    background: rgba(255,255,255,0.07);
+  }
+  .stat-card .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--green-vivid);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-card .label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+  .stat-card.amber .num { color: var(--amber); }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 2.5rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-kicker {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 0.75rem;
+  }
+  h2.section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.2;
+    color: var(--green-deep);
+    margin-bottom: 1.25rem;
+  }
+  .section-lead {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #3a4a40;
+    margin-bottom: 1.25rem;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+  .highlight-quote {
+    border-left: 3px solid var(--green-vivid);
+    padding: 1.25rem 1.5rem;
+    background: rgba(34,201,122,0.06);
+    border-radius: 0 12px 12px 0;
+    margin: 2rem 0;
+  }
+  .highlight-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--green-deep);
+    line-height: 1.6;
+  }
+  .about-pillars { display: flex; flex-direction: column; gap: 1rem; }
+  .pillar {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .pillar:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); transform: translateX(4px); }
+  .pillar-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--green-pale);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .pillar h4 { font-size: 0.9rem; font-weight: 500; color: var(--green-deep); margin-bottom: 3px; }
+  .pillar p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── PROBLEM ── */
+  #problem { background: var(--green-deep); }
+  #problem .section-kicker { color: var(--green-pale); opacity: 0.7; }
+  #problem h2.section-title { color: #fff; }
+  #problem .section-lead { color: rgba(255,255,255,0.6); }
+  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .problem-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .problem-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(34,201,122,0.3); }
+  .problem-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+  .problem-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.6rem; }
+  .problem-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* ── METHODOLOGY ── */
+  #methodology { background: #fff; }
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .method-card {
+    padding: 2rem;
+    border: 1px solid #e8f0eb;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .method-card::before {
+    content: attr(data-num);
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--green-pale);
+    line-height: 1;
+  }
+  .method-card:hover { box-shadow: 0 8px 32px rgba(0,100,50,0.1); }
+  .method-card h3 { font-size: 0.95rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.75rem; }
+  .method-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── CASE STUDIES ── */
+  #cases { background: var(--cream); }
+  .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .case-card {
+    background: #fff;
+    border: 1px solid #e8f0eb;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .case-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,80,40,0.12); }
+  .case-header {
+    background: var(--green-deep);
+    padding: 1.5rem;
+  }
+  .case-header .tag {
+    display: inline-block;
+    background: rgba(34,201,122,0.2);
+    color: var(--green-vivid);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+  }
+  .case-header h3 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff; }
+  .case-body { padding: 1.5rem; }
+  .case-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+  .case-impact {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e8f0eb;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--green-mid);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .case-impact::before { content: '↗'; }
+
+  /* ── ANALYSIS ── */
+  #analysis { background: var(--green-deep); }
+  #analysis h2.section-title { color: #fff; }
+  #analysis .section-kicker { color: rgba(34,201,122,0.7); }
+  #analysis .section-lead { color: rgba(255,255,255,0.6); }
+  .analysis-list { display: flex; flex-direction: column; gap: 1px; }
+  .analysis-item {
+    display: grid; grid-template-columns: 60px 1fr;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+  }
+  .analysis-item:hover { border-color: rgba(34,201,122,0.4); }
+  .analysis-num {
+    background: rgba(34,201,122,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--green-vivid);
+  }
+  .analysis-content { padding: 1.5rem; }
+  .analysis-content h3 { font-size: 0.95rem; font-weight: 500; color: #fff; margin-bottom: 0.5rem; }
+  .analysis-content p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* ── ALTERNATIVES ── */
+  #alternatives { background: #fff; }
+  .alt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .alt-card {
+    padding: 2rem;
+    border: 1px solid #e8f0eb;
+    border-radius: 16px;
+    position: relative;
+  }
+  .alt-card.recommended {
+    border-color: var(--green-vivid);
+    background: rgba(34,201,122,0.04);
+  }
+  .rec-badge {
+    position: absolute; top: -12px; left: 1.5rem;
+    background: var(--green-vivid);
+    color: var(--green-deep);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 100px;
+  }
+  .alt-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--green-deep); margin-bottom: 0.75rem; }
+  .alt-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .tradeoff {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: #f0f7f3;
+    color: var(--green-mid);
+    display: inline-block;
+  }
+  .alt-card.recommended .tradeoff { background: rgba(34,201,122,0.1); }
+
+  /* ── RECOMMENDATION ── */
+  #recommendation { background: var(--cream); }
+  .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .rec-steps { display: flex; flex-direction: column; gap: 1rem; }
+  .rec-step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #e8f0eb;
+    border-radius: 12px;
+  }
+  .rec-step-num {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: var(--green-deep);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.9rem;
+    color: var(--green-vivid);
+  }
+  .rec-step h4 { font-size: 0.88rem; font-weight: 500; color: var(--green-deep); margin-bottom: 3px; }
+  .rec-step p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── TEAM ── */
+  #team { background: var(--green-deep); }
+  #team h2.section-title { color: #fff; }
+  #team .section-kicker { color: rgba(34,201,122,0.7); }
+  #team .section-lead { color: rgba(255,255,255,0.55); }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .team-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  }
+  .team-card:hover {
+    border-color: rgba(34,201,122,0.4);
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-3px);
+  }
+  .team-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(34,201,122,0.15);
+    border: 2px solid rgba(34,201,122,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--green-vivid);
+    margin: 0 auto 1rem;
+  }
+  .team-card h3 { font-size: 0.95rem; font-weight: 500; color: #fff; margin-bottom: 4px; }
+  .team-card .role { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+  .team-meta {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .team-meta-item .label { font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .team-meta-item .value { font-size: 0.9rem; color: rgba(255,255,255,0.85); font-weight: 400; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050e09;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+  footer .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--green-vivid);
+    margin-bottom: 0.75rem;
+  }
+  footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); line-height: 1.7; }
+  footer a { color: rgba(34,201,122,0.7); text-decoration: none; }
+  footer a:hover { color: var(--green-vivid); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 48px; height: 3px;
+    background: var(--green-vivid);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .section-divider.light { background: rgba(34,201,122,0.5); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-stats { padding-left: 0; margin-top: 3rem; }
+    .about-grid, .rec-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .problem-grid, .cases-grid, .team-grid { grid-template-columns: 1fr 1fr; }
+    .alt-grid { grid-template-columns: 1fr; }
+    .team-meta { grid-template-columns: 1fr; gap: 1.25rem; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .problem-grid, .cases-grid, .team-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">SELCO India</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#recommendation">Recommendations</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-bg-circles" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+    <circle cx="900" cy="200" r="300" fill="#22c97a"/>
+    <circle cx="200" cy="600" r="200" fill="#22c97a"/>
+    <circle cx="1100" cy="600" r="150" fill="#f59e1a"/>
+  </svg>
+  <div class="hero-text">
+    <div class="hero-kicker">Research Case Study · 2025</div>
+    <h1 class="hero-title">Lighting Lives,<br><em>Powering Livelihoods</em></h1>
+    <p class="hero-sub">How SELCO India's user-centered ecosystem model is redefining rural energy access — transforming solar power from a product into a catalyst for sustainable livelihoods.</p>
+    <div class="hero-ctas">
+      <a href="#about" class="btn-primary">Explore the Research</a>
+      <a href="#team" class="btn-outline">Meet the Team</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="num">2M+</div>
+      <div class="label">Homes electrified across rural India</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="num">30K+</div>
+      <div class="label">Community members empowered through livelihoods</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">5.9K</div>
+      <div class="label">Health facilities powered by clean solar energy</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="num">1995</div>
+      <div class="label">Founded — 30 years of rural innovation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Executive Summary</p>
+      <h2 class="section-title">Beyond Solar Panels — A New Kind of Innovation</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>SELCO India stands as a highly instructive example of how entrepreneurship can address deep structural problems in rural development. Rather than treating solar energy as a stand-alone product, SELCO built a user-centered ecosystem model that links energy access to livelihood creation, financial inclusion, service delivery, and local institutional support.</p>
+        <div class="highlight-quote">
+          <p>"Rural innovation succeeds when it is designed from the user's point of view — not the supplier's."</p>
+        </div>
+        <p>The central problem SELCO addresses is not simply a lack of solar technology. It is the deeper failure of existing systems to translate energy access into sustainable livelihoods. SELCO's answer was to ask a different question: not "Can we sell solar panels?" but "What kind of system allows a rural user to generate value from energy?"</p>
+        <p>That question changed everything. Founded in 1995 by Harish Hande, SELCO challenged the assumption that rural customers were unwilling or unable to pay for clean energy — proving instead that people adopt solutions when those solutions match their economic realities and produce visible value.</p>
+      </div>
+      <div class="about-pillars reveal">
+        <div class="pillar">
+          <div class="pillar-icon">🎯</div>
+          <div>
+            <h4>Tailored Solutions</h4>
+            <p>Deep understanding of local needs ensures every system fits the user's lived reality, not a standardized template.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🔗</div>
+          <div>
+            <h4>Ecosystem Building</h4>
+            <p>Partnerships with bankers, technicians, and communities create lasting, self-reinforcing infrastructure.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">💰</div>
+          <div>
+            <h4>Financial Inclusion</h4>
+            <p>Affordable, flexible financing models make clean energy accessible to low-income households with irregular cash flows.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🛠️</div>
+          <div>
+            <h4>Capacity Building</h4>
+            <p>Training local workforces for installation and maintenance builds community self-reliance and employment.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📊</div>
+          <div>
+            <h4>Livelihood Impact</h4>
+            <p>Impact measured not by devices deployed, but by quality of income improvement and enterprise resilience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">The Challenge</p>
+      <h2 class="section-title">Rural India's Energy Paradox</h2>
+      <div class="section-divider light"></div>
+      <p class="section-lead">India's villages hold immense entrepreneurial potential — yet they are constrained by infrastructure gaps that make even basic business activity precarious.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="icon">🕯️</div>
+        <h3>No Reliable Energy</h3>
+        <p>Rural households relied on kerosene, diesel, or unstable grid access — expensive, polluting, and unreliable. A vendor without evening lighting loses sales; a farmer without power cannot irrigate on time.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">🔧</div>
+        <h3>Broken Product Model</h3>
+        <p>Conventional development efforts installed solar systems as if technology itself were the solution. Without repair services, financing, or local ownership, most systems failed or were abandoned within years.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">📉</div>
+        <h3>Systemic Exclusion</h3>
+        <p>Low adoption, weak maintenance, and poor long-term impact — not because communities didn't want clean energy, but because the surrounding systems couldn't support or sustain it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="methodology">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Research Framework</p>
+      <h2 class="section-title">How We Analyzed SELCO's Model</h2>
+      <div class="section-divider"></div>
+      <p class="section-lead">This case study combines descriptive, interpretive, and strategic analysis — examining the logic of SELCO's innovation and the strategic decisions it faces.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-card reveal" data-num="01">
+        <h3>User-Centered Design</h3>
+        <p>Examines how SELCO identifies problems from the end user's point of view — explaining why rural energy solutions fail when designed from the supplier's perspective.</p>
+      </div>
+      <div class="method-card reveal" data-num="02">
+        <h3>Ecosystem Thinking</h3>
+        <p>Evaluates SELCO not as a product provider but as a system builder — how financing, distribution, maintenance, training, and institutional support interact to create a functioning innovation environment.</p>
+      </div>
+      <div class="method-card reveal" data-num="03">
+        <h3>Social Enterprise Analysis</h3>
+        <p>Assesses the trade-offs between mission and sustainability. SELCO operates in the space between business and social development, balancing affordability, scale, and impact.</p>
+      </div>
+      <div class="method-card reveal" data-num="04">
+        <h3>Livelihood-Centered Innovation</h3>
+        <p>Looks at whether innovation improves income, reduces risk, and strengthens rural enterprise — rather than measuring success only in technical deployment terms.</p>
+      </div>
+      <div class="method-card reveal" data-num="05">
+        <h3>Scaling & Adaptation Analysis</h3>
+        <p>Examines the tension between replication and contextual customization. SELCO's local responsiveness creates impact but makes national scaling more complex.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">On the Ground</p>
+      <h2 class="section-title">Real-World Innovation at Work</h2>
+      <div class="section-divider"></div>
+      <p class="section-lead">Three examples that illustrate how a single intervention can create multiple layers of value across communities.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-header">
+          <div class="tag">Tamil Nadu</div>
+          <h3>Dhanushkodi Fishing Community</h3>
+        </div>
+        <div class="case-body">
+          <p>Off-grid solar technology delivered to 200 fishing families, enabling safe night navigation and cold storage for their catch — extending market reach and protecting income from spoilage.</p>
+          <div class="case-impact">Safer nights, extended business hours, reduced food loss</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-header">
+          <div class="tag">Karnataka</div>
+          <h3>The Siddis Tribal Community</h3>
+        </div>
+        <div class="case-body">
+          <p>SELCO acted as bank guarantors for this tribal community — unlocking solar energy access and institutional finance for the very first time, demonstrating that financial inclusion is a prerequisite for technology adoption.</p>
+          <div class="case-impact">First-ever access to institutional finance</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-header">
+          <div class="tag">Rural Education</div>
+          <h3>The Solar Bus</h3>
+        </div>
+        <div class="case-body">
+          <p>A mobile solar-powered classroom bringing computer education directly to village schools — bridging the digital divide without requiring permanent infrastructure investment in remote areas.</p>
+          <div class="case-impact">Digital education reaching the unreachable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spill-over highlight -->
+    <div class="reveal" style="margin-top:2.5rem; padding:2.5rem; background:#fff; border:1px solid #e8f0eb; border-radius:20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+        <div>
+          <p class="section-kicker" style="margin-bottom:0.5rem">The Spill-Over Effect</p>
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--green-deep);margin-bottom:1rem">Rice-Hulling Machine Impact</h3>
+          <p style="font-size:0.9rem;color:var(--muted);line-height:1.8">A single rice-hulling machine did more than improve processing. Women began earning from machine operation. Local transport needs rose. Reduced wastage improved village food security. These spill-over effects are precisely what make ecosystem innovation powerful — one intervention cascading into many benefits.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div style="padding:1.25rem;background:var(--green-pale);border-radius:12px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--green-deep)">↑</div>
+            <div style="font-size:0.78rem;color:var(--green-mid);font-weight:500;margin-top:4px">Women's income</div>
+          </div>
+          <div style="padding:1.25rem;background:#fff9ed;border-radius:12px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#b45309">↓</div>
+            <div style="font-size:0.78rem;color:#92400e;font-weight:500;margin-top:4px">Food wastage</div>
+          </div>
+          <div style="padding:1.25rem;background:var(--green-pale);border-radius:12px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--green-deep)">↑</div>
+            <div style="font-size:0.78rem;color:var(--green-mid);font-weight:500;margin-top:4px">Local transport</div>
+          </div>
+          <div style="padding:1.25rem;background:#fff9ed;border-radius:12px;text-align:center;">
+            <div style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#b45309">↑</div>
+            <div style="font-size:0.78rem;color:#92400e;font-weight:500;margin-top:4px">Food security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Deep Dive</p>
+      <h2 class="section-title">What Makes SELCO's Model Work</h2>
+      <div class="section-divider light"></div>
+      <p class="section-lead">SELCO redefines what rural innovation means — operating at the intersection of engineering, entrepreneurship, and social development.</p>
+    </div>
+    <div class="analysis-list">
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.1</div>
+        <div class="analysis-content">
+          <h3>The Logic of User-Centered Innovation</h3>
+          <p>Affordability is not just a price issue — it is a cash-flow issue. A solar system requiring a large upfront payment may look affordable externally, but it is inaccessible when income is seasonal or irregular. SELCO's service model solves this through flexibility: the night street vendor battery rental model allows access without ownership burden, aligning payments with actual earning patterns.</p>
+        </div>
+      </div>
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.2</div>
+        <div class="analysis-content">
+          <h3>Ecosystem as the Real Innovation</h3>
+          <p>Hardware alone cannot solve energy poverty. SELCO recognized that it needed to create the conditions under which hardware could be used productively and continuously. Cold storage helps farmers reduce losses. Health centres need reliable power. Millet processing and bio-digesters strengthen local value chains. Together, they create a self-reinforcing system — not a one-off installation.</p>
+        </div>
+      </div>
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.3</div>
+        <div class="analysis-content">
+          <h3>Livelihood as the Unit of Impact</h3>
+          <p>A system that produces light but not income is useful, but limited. A system that enables someone to work longer, process more efficiently, or store products more effectively has broader developmental value. The egg incubator sizing problem illustrates this — the incubator must be appropriately sized, financially accessible, and technically manageable. If it is not, the technology fails to diffuse regardless of its quality.</p>
+        </div>
+      </div>
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.4</div>
+        <div class="analysis-content">
+          <h3>Social Enterprise Trade-Offs</h3>
+          <p>Prices too high exclude users. Prices too low compromise service quality and viability. Expanding too quickly loses local responsiveness. Expanding too slowly remains too small for systemic change. SELCO's strength is that it acknowledges these tensions and manages them through careful design — treating profit and purpose as interdependent, not contradictory.</p>
+        </div>
+      </div>
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.5</div>
+        <div class="analysis-content">
+          <h3>Scaling Dilemmas</h3>
+          <p>A model built on deep user understanding cannot be scaled like a mass-market product. What works in Karnataka may not work in the Northeast, where geography, community structures, and enterprise ecosystems differ significantly. SELCO Foundation's approach of creating "Lego blocks" — modular components that local actors can adapt — captures the right balance of modularity without rigidity.</p>
+        </div>
+      </div>
+      <div class="analysis-item reveal">
+        <div class="analysis-num">5.6</div>
+        <div class="analysis-content">
+          <h3>Engineering Lessons</h3>
+          <p>Design is not neutral. Every technical decision carries implications for usability, affordability, and sustainability. Engineers must think beyond efficiency and consider adoption, maintenance, and user experience. SELCO did not invent solar power — it made solar power work for users previously excluded by conventional market logic. That is a profound entrepreneurial achievement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALTERNATIVES -->
+<section id="alternatives">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Strategic Options</p>
+      <h2 class="section-title">Four Paths to Rural Energy Access</h2>
+      <div class="section-divider"></div>
+      <p class="section-lead">We evaluated four possible approaches to rural energy and livelihood creation — each with distinct trade-offs.</p>
+    </div>
+    <div class="alt-grid">
+      <div class="alt-card reveal">
+        <h3>Large-Scale Standardized Distribution</h3>
+        <p>Rapidly distribute standard solar products across many villages. Easier to manage, quick visible numbers. But risks weak fit with local needs, poor maintenance, and limited livelihood impact.</p>
+        <span class="tradeoff">High scale · Low contextual sensitivity</span>
+      </div>
+      <div class="alt-card reveal">
+        <h3>Donor-Led Subsidy Model</h3>
+        <p>Heavily subsidize system costs to maximize access. Improves short-term affordability for the poorest users. However, donor dependence weakens long-term sustainability and reduces incentives for service quality.</p>
+        <span class="tradeoff">Greater access · Weaker durability</span>
+      </div>
+      <div class="alt-card reveal">
+        <h3>Pure Market Model</h3>
+        <p>Commercial pricing, standard product sales, private distribution. May work in relatively wealthier markets, but in low-income rural areas, users remain excluded due to fragmented demand and irregular paying capacity.</p>
+        <span class="tradeoff">Commercial discipline · Lower social inclusion</span>
+      </div>
+      <div class="alt-card recommended reveal">
+        <div class="rec-badge">Recommended</div>
+        <h3>User-Centered Ecosystem Model</h3>
+        <p>SELCO's model — combining technology, financing, training, local partnerships, and maintenance networks. Slower and more complex, but produces durable livelihood outcomes and genuine long-term adoption.</p>
+        <span class="tradeoff">Operational complexity · Long-term resilience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATION -->
+<section id="recommendation">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Strategic Recommendation</p>
+      <h2 class="section-title">The Path Forward for SELCO</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="rec-grid">
+      <div class="reveal">
+        <p style="font-size:0.95rem;line-height:1.85;color:#3a4a40;margin-bottom:1.25rem">SELCO should continue strengthening its user-centered ecosystem model while selectively standardizing elements that can be replicated without losing local responsiveness.</p>
+        <p style="font-size:0.95rem;line-height:1.85;color:#3a4a40;margin-bottom:1.25rem">A rapid mass-market strategy might increase reach, but it would risk undermining the depth of user engagement that makes the model effective. The organization should therefore prioritize <strong>sustainable scaling</strong> rather than aggressive replication.</p>
+        <div class="highlight-quote" style="margin-top:1.5rem">
+          <p>"Scaling should preserve contextual trust and systemic integration — not flatten them."</p>
+        </div>
+      </div>
+      <div class="rec-steps reveal">
+        <div class="rec-step">
+          <div class="rec-step-num">1</div>
+          <div>
+            <h4>Deepen sector-specific applications</h4>
+            <p>Agriculture, health, and microenterprise are the highest-impact domains. Expand SELCO's portfolio here.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <div class="rec-step-num">2</div>
+          <div>
+            <h4>Expand financial partnerships</h4>
+            <p>Broaden relationships with local financial institutions and community organizations for accessible lending.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <div class="rec-step-num">3</div>
+          <div>
+            <h4>Invest in modular platforms</h4>
+            <p>Build product platforms that can be adapted rather than fully redesigned each time for a new context.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <div class="rec-step-num">4</div>
+          <div>
+            <h4>Strengthen technician networks</h4>
+            <p>After-sales support and local training are what keep systems running — and communities trusting.</p>
+          </div>
+        </div>
+        <div class="rec-step">
+          <div class="rec-step-num">5</div>
+          <div>
+            <h4>Measure livelihood outcomes</h4>
+            <p>Track income improvement, time saved, reduced losses, and enterprise continuity — not unit sales alone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">The Researchers</p>
+      <h2 class="section-title">Meet the Team</h2>
+      <div class="section-divider light"></div>
+      <p class="section-lead">A group of six engineering students exploring the intersection of technology, entrepreneurship, and social impact.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar">NG</div>
+        <h3>Neha Gaikwad</h3>
+        <div class="role">Group Member</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">MP</div>
+        <h3>Meghana Prathipati</h3>
+        <div class="role">Group Member</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">VJ</div>
+        <h3>Vaishnavi Jadhav</h3>
+        <div class="role">Group Member</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">SS</div>
+        <h3>Saylee Shelar</h3>
+        <div class="role">Group Member</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">VG</div>
+        <h3>Vaibhav Gulage</h3>
+        <div class="role">Group Member</div>
+      </div>
+      <div class="team-card reveal">
+        <div class="team-avatar">PS</div>
+        <h3>Priyanshu Kumar Sharma</h3>
+        <div class="role">Group Member</div>
+      </div>
+    </div>
+    <div class="team-meta reveal">
+      <div class="team-meta-item">
+        <div class="label">Group</div>
+        <div class="value">Pitch Perfects</div>
+      </div>
+      <div class="team-meta-item">
+        <div class="label">Subject</div>
+        <div class="value">Entrepreneurship for Engineers (GEX209)</div>
+      </div>
+      <div class="team-meta-item">
+        <div class="label">Guide</div>
+        <div class="value">Prof. Parmeshwari Aland</div>
+      </div>
+      <div class="team-meta-item">
+        <div class="label">Branch</div>
+        <div class="value">B.Tech IT — Cloud Technology & Information Security</div>
+      </div>
+      <div class="team-meta-item">
+        <div class="label">University</div>
+        <div class="value">Ajeenkya DY Patil University, Pune</div>
+      </div>
+      <div class="team-meta-item">
+        <div class="label">Semester</div>
+        <div class="value">B.Tech Semester 8 · 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">SELCO India Research</div>
+  <p style="margin-bottom:0.5rem">Case Study: Rural Innovation Model — A User-Centered Ecosystem Approach to Sustainable Livelihoods</p>
+  <p>Research by <strong style="color:rgba(255,255,255,0.6)">Pitch Perfects</strong> · Ajeenkya DY Patil University · Entrepreneurship for Engineers · 2025</p>
+  <p style="margin-top:1rem">Learn more about SELCO India at <a href="https://selco-india.com" target="_blank">selco-india.com</a></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
