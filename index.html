@@ -500,6 +500,194 @@
   }
   .reveal.visible { opacity: 1; transform: none; }
 
+  /* ── IMAGE GALLERY ── */
+  #gallery { background: var(--green-deep); padding: 5rem 2.5rem; }
+  #gallery h2.section-title { color: #fff; }
+  #gallery .section-kicker { color: rgba(34,201,122,0.7); }
+  #gallery .section-lead { color: rgba(255,255,255,0.6); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 260px 260px;
+    gap: 1rem;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+  }
+  .gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: brightness(0.85);
+  }
+  .gallery-item:hover img {
+    transform: scale(1.06);
+    filter: brightness(1);
+  }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.2rem 1rem 0.9rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .gallery-item:hover .gallery-caption { transform: translateY(0); }
+  .gallery-item .gallery-tag {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    background: rgba(34,201,122,0.85);
+    color: var(--green-deep);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+    .gallery-item:first-child { grid-row: auto; }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
+  }
+
+  /* ── SURVEY SECTION ── */
+  #survey { background: var(--cream); }
+  .survey-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .survey-left {}
+  .survey-embed-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,80,40,0.08);
+  }
+  .survey-embed-box iframe {
+    width: 100%;
+    height: 620px;
+    border: none;
+    display: block;
+  }
+  .survey-right {}
+  .responses-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+  .response-count-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(34,201,122,0.1);
+    border: 1px solid rgba(34,201,122,0.25);
+    color: var(--green-mid);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .response-count-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green-vivid);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .responses-list {
+    display: flex; flex-direction: column; gap: 1rem;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .responses-list::-webkit-scrollbar { width: 4px; }
+  .responses-list::-webkit-scrollbar-track { background: transparent; }
+  .responses-list::-webkit-scrollbar-thumb { background: rgba(34,201,122,0.3); border-radius: 2px; }
+  .response-card {
+    background: #fff;
+    border: 1px solid #e8f0eb;
+    border-radius: 14px;
+    padding: 1.25rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  .response-card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+  .response-avatar {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.85rem;
+    color: var(--green-deep);
+    font-weight: 700;
+  }
+  .response-name { font-size: 0.85rem; font-weight: 500; color: var(--green-deep); }
+  .response-time { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .response-answer {
+    font-size: 0.82rem;
+    color: #3a4a40;
+    line-height: 1.65;
+    border-left: 2px solid var(--green-vivid);
+    padding-left: 0.75rem;
+    margin-left: 2px;
+  }
+  .response-answer strong { color: var(--green-mid); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .responses-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .responses-loading .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid var(--green-pale);
+    border-top-color: var(--green-vivid);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 0.75rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .responses-error {
+    text-align: center;
+    padding: 1.5rem;
+    background: #fff5f5;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    color: #b91c1c;
+  }
+  .privacy-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.7rem;
+    color: var(--green-mid);
+    background: rgba(34,201,122,0.06);
+    border: 1px solid rgba(34,201,122,0.15);
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-top: 0.5rem;
+  }
+  .privacy-yes { background: rgba(34,201,122,0.1); color: var(--green-mid); border-color: rgba(34,201,122,0.3); }
+  .privacy-no { background: #fff5f5; color: #b91c1c; border-color: #fecaca; }
+  @media (max-width: 900px) {
+    .survey-wrap { grid-template-columns: 1fr; }
+    .survey-embed-box iframe { height: 480px; }
+  }
+
   /* ── DIVIDER ── */
   .section-divider {
     width: 48px; height: 3px;
@@ -541,6 +729,7 @@
     <li><a href="#analysis">Analysis</a></li>
     <li><a href="#recommendation">Recommendations</a></li>
     <li><a href="#team">Team</a></li>
+    <li><a href="#survey" style="color:var(--green-vivid)">Survey</a></li>
   </ul>
 </nav>
 
@@ -576,6 +765,51 @@
     <div class="stat-card amber">
       <div class="num">1995</div>
       <div class="label">Founded — 30 years of rural innovation</div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Field Documentation</p>
+      <h2 class="section-title">Clean Energy, Real Communities</h2>
+      <div class="section-divider light"></div>
+      <p class="section-lead" style="color:rgba(255,255,255,0.6)">A glimpse into the lives and landscapes SELCO's innovation touches — from fishing coasts to tribal heartlands.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Solar_panels_on_a_rural_Indian_home.jpg/1280px-Solar_panels_on_a_rural_Indian_home.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80'"
+             alt="Solar panels on a rural Indian home">
+        <span class="gallery-tag">Rural India</span>
+        <div class="gallery-caption">Solar-powered homes changing the fabric of rural life</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80"
+             alt="Solar energy panels in India">
+        <span class="gallery-tag">Clean Energy</span>
+        <div class="gallery-caption">Harnessing sunlight for sustainable development</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80"
+             alt="Solar field sunrise">
+        <span class="gallery-tag">Innovation</span>
+        <div class="gallery-caption">Renewable energy as the new foundation of rural enterprise</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1497435334941-8c899a9bd714?w=600&q=80"
+             alt="Fishing boats at sunrise">
+        <span class="gallery-tag">Tamil Nadu</span>
+        <div class="gallery-caption">Fishing communities empowered with solar navigation lights</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80"
+             alt="Women and community empowerment">
+        <span class="gallery-tag">Livelihoods</span>
+        <div class="gallery-caption">Women-led enterprises thriving with reliable clean energy</div>
+      </div>
     </div>
   </div>
 </section>
@@ -992,6 +1226,59 @@
   </div>
 </section>
 
+<!-- SURVEY + LIVE RESPONSES -->
+<section id="survey">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-kicker">Community Voices</p>
+      <h2 class="section-title">Share Your Perspective</h2>
+      <div class="section-divider"></div>
+      <p class="section-lead">We'd love to hear what you think about SELCO's model. Fill in our short survey below — your responses are displayed live on this page.</p>
+    </div>
+    <div class="survey-wrap">
+      <!-- GOOGLE FORM EMBED -->
+      <div class="survey-left reveal">
+        <div class="survey-embed-box">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScN3kSwLBHqrTiHzGFkUf4MbY7s6-ZoIHx-s2i1vBbWNGaIIA/viewform?embedded=true"
+            title="SELCO India Research Survey"
+            loading="lazy">
+            Loading survey…
+          </iframe>
+          <!-- Note: Replace the src above with your actual form's embed URL.
+               Go to your form → Send → Embed → copy the iframe src.
+               Your form link: https://forms.gle/dbopbiyLbBYNZJZ26 -->
+        </div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem;text-align:center">
+          Having trouble? <a href="https://forms.gle/dbopbiyLbBYNZJZ26" target="_blank" style="color:var(--green-mid)">Open the form directly ↗</a>
+        </p>
+      </div>
+
+      <!-- LIVE RESPONSES PANEL -->
+      <div class="survey-right reveal">
+        <div class="responses-header">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--green-deep)">Live Responses</h3>
+          <span class="response-count-badge" id="responseCountBadge">Loading…</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
+          Responses from people who've shared their views on SELCO's rural energy model. Only responses from participants who consented to public display are shown.
+        </p>
+        <div class="responses-list" id="responsesList">
+          <div class="responses-loading">
+            <div class="spinner"></div>
+            Fetching latest responses…
+          </div>
+        </div>
+        <div style="margin-top:1rem;text-align:right">
+          <button onclick="loadResponses()" style="background:none;border:1px solid var(--border);color:var(--green-mid);font-size:0.78rem;padding:6px 16px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all 0.2s" onmouseover="this.style.borderColor='var(--green-vivid)'" onmouseout="this.style.borderColor='var(--border)'">
+            ↺ Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="logo">SELCO India Research</div>
@@ -1001,6 +1288,7 @@
 </footer>
 
 <script>
+  // ── Scroll reveal ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -1009,8 +1297,119 @@
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Live Responses from Google Sheets ──
+  const SHEET_ID = '17kgCRTz1ODbfxlKsMptYpSfRfbeDt1dB26CNL1xU7yM';
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+  function timeAgo(dateStr) {
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      const diff = Math.floor((Date.now() - d) / 1000);
+      if (diff < 60) return 'Just now';
+      if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+      if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+      return `${Math.floor(diff/86400)}d ago`;
+    } catch { return dateStr; }
+  }
+
+  function initials(name) {
+    if (!name || name.trim() === '') return '?';
+    return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+  }
+
+  async function loadResponses() {
+    const list = document.getElementById('responsesList');
+    const badge = document.getElementById('responseCountBadge');
+    list.innerHTML = '<div class="responses-loading"><div class="spinner"></div>Fetching latest responses…</div>';
+
+    try {
+      const res = await fetch(SHEET_URL);
+      const text = await res.text();
+      // Google wraps JSON in /*O_o*/ google.visualization.Query.setResponse(...)
+      const json = JSON.parse(text.replace(/^[^{]*/, '').replace(/\);?\s*$/, ''));
+      const rows = json.table.rows || [];
+      const cols = json.table.cols || [];
+
+      // Find column indices by label (case-insensitive)
+      const colLabel = (i) => (cols[i]?.label || '').toLowerCase();
+      let tsIdx = -1, nameIdx = -1, privacyIdx = -1;
+      // The last column is privacy. Timestamp is always col 0.
+      cols.forEach((c, i) => {
+        const l = c.label.toLowerCase();
+        if (l.includes('timestamp')) tsIdx = i;
+        if (l.includes('name') && !l.includes('privacy')) nameIdx = i;
+        if (l.includes('privacy') || l.includes('use your name') || l.includes('can we use')) privacyIdx = i;
+      });
+      if (tsIdx === -1) tsIdx = 0;
+
+      // Identify "answer" columns — everything except timestamp, name, privacy
+      const answerCols = cols.map((c, i) => i).filter(i => i !== tsIdx && i !== nameIdx && i !== privacyIdx);
+
+      // Filter to only consented rows
+      const consented = rows.filter(r => {
+        if (privacyIdx === -1) return true;
+        const v = (r.c[privacyIdx]?.v || '').toString().toLowerCase();
+        return v.includes('yes') || v.includes('sure') || v.includes('ok') || v === 'true';
+      });
+
+      badge.textContent = `${consented.length} response${consented.length !== 1 ? 's' : ''}`;
+
+      if (consented.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">No public responses yet — be the first to fill in the survey! 🌱</div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      [...consented].reverse().forEach((row, idx) => {
+        const name = nameIdx !== -1 ? (row.c[nameIdx]?.v || 'Anonymous') : 'Anonymous';
+        const timestamp = tsIdx !== -1 ? (row.c[tsIdx]?.v || '') : '';
+        const privacyVal = privacyIdx !== -1 ? (row.c[privacyIdx]?.v || '') : 'Yes';
+        const displayName = name.trim() || 'Anonymous';
+
+        const answersHtml = answerCols.map(i => {
+          const val = row.c[i]?.v;
+          if (!val) return '';
+          return `<div class="response-answer" style="margin-bottom:0.6rem"><strong>${cols[i].label}</strong>${val}</div>`;
+        }).filter(Boolean).join('');
+
+        const privacyDisplay = privacyVal.toString().toLowerCase().includes('yes')
+          ? `<span class="privacy-tag privacy-yes">✓ Consented to display</span>`
+          : `<span class="privacy-tag privacy-no">Anonymous display</span>`;
+
+        const card = document.createElement('div');
+        card.className = 'response-card';
+        card.style.animationDelay = `${idx * 0.05}s`;
+        card.innerHTML = `
+          <div class="response-card-header">
+            <div class="response-avatar">${initials(displayName)}</div>
+            <div>
+              <div class="response-name">${displayName}</div>
+              <div class="response-time">${timeAgo(timestamp)}</div>
+            </div>
+          </div>
+          ${answersHtml}
+          ${privacyDisplay}
+        `;
+        list.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error(err);
+      list.innerHTML = `
+        <div class="responses-error">
+          <strong>Couldn't load responses right now.</strong><br>
+          This may be because the Google Sheet isn't publicly readable yet.<br>
+          <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}" target="_blank" style="color:var(--green-mid);font-size:0.8rem;margin-top:0.5rem;display:inline-block">View the sheet directly ↗</a>
+        </div>`;
+    }
+  }
+
+  // Load on page load, then refresh every 60s
+  loadResponses();
+  setInterval(loadResponses, 60000);
 </script>
 </body>
 </html>
