@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELCO Survey Presentation Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0a3d2b;
+    --green-mid: #1a6645;
+    --green-vivid: #22c97a;
+    --green-pale: #d4f5e4;
+    --amber: #f59e1a;
+    --cream: #f7f4ec;
+    --paper: #fffdf8;
+    --ink: #101d16;
+    --muted: #587062;
+    --border: rgba(10, 61, 43, 0.1);
+    --shadow: 0 22px 60px rgba(10, 61, 43, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(34, 201, 122, 0.14), transparent 28%),
+      radial-gradient(circle at top right, rgba(245, 158, 26, 0.16), transparent 26%),
+      linear-gradient(180deg, #f2f8f1 0%, var(--cream) 46%, #f9f6ef 100%);
+    color: var(--ink);
+  }
+
+  a { color: inherit; }
+
+  .page-shell {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 1.4rem 5rem;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    backdrop-filter: blur(16px);
+    background: rgba(247, 244, 236, 0.88);
+    border-bottom: 1px solid rgba(10, 61, 43, 0.08);
+  }
+
+  .topbar-inner {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 1rem 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .brand a {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--green-deep);
+    text-decoration: none;
+  }
+
+  .brand small {
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .link-btn,
+  .ghost-btn,
+  .solid-btn,
+  select {
+    font: inherit;
+    border-radius: 999px;
+    border: 1px solid rgba(10, 61, 43, 0.12);
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--green-deep);
+  }
+
+  .link-btn,
+  .ghost-btn,
+  .solid-btn {
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .solid-btn {
+    background: var(--green-deep);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 14px 30px rgba(10, 61, 43, 0.2);
+  }
+
+  .link-btn:hover,
+  .ghost-btn:hover,
+  .solid-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  header.hero {
+    padding: 4.4rem 0 2.6rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  .hero-copy,
+  .hero-panel,
+  .control-bar,
+  .question-card,
+  .guide-card {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(10, 61, 43, 0.08);
+    box-shadow: var(--shadow);
+  }
+
+  .hero-copy {
+    border-radius: 30px;
+    padding: 2.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-copy::after {
+    content: '';
+    position: absolute;
+    inset: auto -40px -40px auto;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(34, 201, 122, 0.14), transparent 70%);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    color: var(--green-mid);
+    background: rgba(34, 201, 122, 0.1);
+    border: 1px solid rgba(34, 201, 122, 0.18);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green-vivid);
+    box-shadow: 0 0 0 8px rgba(34, 201, 122, 0.1);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--green-deep);
+    font-size: clamp(2.3rem, 4vw, 4rem);
+    line-height: 1.08;
+    margin-bottom: 1rem;
+  }
+
+  .hero-copy p {
+    max-width: 54ch;
+    color: #355043;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    margin-top: 1.6rem;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-panel {
+    border-radius: 30px;
+    padding: 1.35rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.95rem;
+  }
+
+  .metric-card {
+    border-radius: 22px;
+    padding: 1.25rem;
+    min-height: 150px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(244, 249, 244, 0.92));
+    border: 1px solid rgba(10, 61, 43, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: translateY(22px);
+    opacity: 0;
+    animation: rise 0.8s ease forwards;
+  }
+
+  .metric-card:nth-child(2) { animation-delay: 0.08s; }
+  .metric-card:nth-child(3) { animation-delay: 0.16s; }
+  .metric-card:nth-child(4) { animation-delay: 0.24s; }
+
+  .metric-label {
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .metric-value {
+    font-family: 'DM Serif Display', serif;
+    color: var(--green-deep);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1;
+  }
+
+  .metric-note {
+    color: #486456;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .guide-card {
+    border-radius: 24px;
+    padding: 1.25rem;
+  }
+
+  .guide-card h3 {
+    font-size: 1rem;
+    color: var(--green-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .guide-card p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .control-bar {
+    border-radius: 28px;
+    padding: 1.15rem 1.2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.8rem;
+  }
+
+  .control-copy h2 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--green-deep);
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .control-copy p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .control-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.95rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: var(--green-mid);
+    background: rgba(34, 201, 122, 0.1);
+    border: 1px solid rgba(34, 201, 122, 0.16);
+  }
+
+  .status-pill::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status-pill[data-tone="error"] {
+    color: #b45309;
+    background: rgba(245, 158, 26, 0.12);
+    border-color: rgba(245, 158, 26, 0.18);
+  }
+
+  .status-pill[data-tone="success"] {
+    color: var(--green-mid);
+  }
+
+  .question-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .question-card {
+    border-radius: 28px;
+    padding: 1.3rem;
+    overflow: hidden;
+  }
+
+  .question-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+
+  .question-kicker {
+    display: inline-block;
+    color: var(--green-mid);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .question-head h3 {
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    color: var(--green-deep);
+    line-height: 1.45;
+    max-width: 48rem;
+  }
+
+  .chart-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 190px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .chart-picker select {
+    min-width: 190px;
+  }
+
+  .question-body {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .chart-shell,
+  .question-details {
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,249,244,0.96));
+    border: 1px solid rgba(10, 61, 43, 0.08);
+    padding: 1rem;
+  }
+
+  .chart-shell {
+    min-height: 320px;
+  }
+
+  .question-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .detail-chip {
+    padding: 0.95rem;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.78);
+    border: 1px solid rgba(10, 61, 43, 0.08);
+  }
+
+  .detail-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-chip strong {
+    color: var(--green-deep);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  .insight {
+    color: #355043;
+    line-height: 1.75;
+    font-size: 0.95rem;
+  }
+
+  .comment-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .comment-strip p {
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    background: rgba(212, 245, 228, 0.5);
+    border-left: 4px solid var(--green-vivid);
+    color: #244336;
+    line-height: 1.7;
+    font-size: 0.9rem;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.84rem;
+    padding-top: 1.8rem;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1080px) {
+    header.hero,
+    .question-body,
+    .guide-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .topbar-inner,
+    .page-shell {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .question-card,
+    .control-bar {
+      border-radius: 24px;
+    }
+
+    .hero-panel,
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .question-head {
+      flex-direction: column;
+    }
+
+    .chart-picker,
+    .chart-picker select {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .topbar-actions,
+    .control-actions,
+    .hero-actions {
+      width: 100%;
+    }
+
+    .topbar-actions > *,
+    .control-actions > *,
+    .hero-actions > * {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="index.html">SELCO India Survey</a>
+        <small>Live presentation dashboard</small>
+      </div>
+      <div class="topbar-actions">
+        <a class="link-btn" href="index.html#survey">Back to main website</a>
+        <a class="ghost-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSciApKaHmgqvtp7dT6JFr5SjvT62fwGAZjILRidL_9YwP6g/viewform" target="_blank" rel="noreferrer">Open survey form</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Presentation mode · animated charts · live sync</span>
+        <h1>Survey data, ready to present.</h1>
+        <p>
+          This dashboard reads directly from your Google Sheet, refreshes itself every 60 seconds,
+          and lets you choose a different chart style for each survey question. Use it during
+          presentations, reviews, and discussions without leaving the website.
+        </p>
+        <div class="hero-actions">
+          <button class="solid-btn" id="refreshNow">Refresh now</button>
+          <button class="ghost-btn" id="resetCharts">Reset chart choices</button>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <article class="metric-card">
+          <span class="metric-label">Public responses</span>
+          <strong class="metric-value" id="kpiResponses" data-value="0">0</strong>
+          <p class="metric-note" id="consentNote">Checking spreadsheet permissions...</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Questions analyzed</span>
+          <strong class="metric-value" id="kpiQuestions" data-value="0">0</strong>
+          <p class="metric-note">Every answer column in the sheet becomes a chart-ready card.</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Latest response</span>
+          <strong class="metric-value" id="kpiLatest">--</strong>
+          <p class="metric-note" id="lastUpdated">Waiting for first sync...</p>
+        </article>
+        <article class="metric-card">
+          <span class="metric-label">Chart choices available</span>
+          <strong class="metric-value" id="kpiChartModes" data-value="0">0</strong>
+          <p class="metric-note">Switch between bar, pie, doughnut, radar, polar area, and more.</p>
+        </article>
+      </div>
+    </header>
+
+    <section class="guide-grid" aria-label="Chart guide">
+      <article class="guide-card">
+        <h3>Bar and Horizontal Bar</h3>
+        <p>Use these when you want the clearest comparison across options. Horizontal mode works especially well for long survey answers.</p>
+      </article>
+      <article class="guide-card">
+        <h3>Pie and Doughnut</h3>
+        <p>Use these when the question is about share of total and the number of answer options is small enough to stay readable.</p>
+      </article>
+      <article class="guide-card">
+        <h3>Radar and Polar Area</h3>
+        <p>Use these when you want the chart to feel more presentation-forward and highlight variation between response groups.</p>
+      </article>
+      <article class="guide-card">
+        <h3>Line</h3>
+        <p>Use this when the responses follow an order, such as numeric bands or progression from one category to the next.</p>
+      </article>
+    </section>
+
+    <section class="control-bar">
+      <div class="control-copy">
+        <h2>Question-by-question chart control</h2>
+        <p>Each question card has its own chart selector, so you can decide which visual works best for that question while keeping everything on one page.</p>
+      </div>
+      <div class="control-actions">
+        <label>
+          <select id="questionJump" aria-label="Jump to a question">
+            <option value="">Jump to a question</option>
+          </select>
+        </label>
+        <span class="status-pill" id="dashboardStatus" data-tone="neutral">Preparing dashboard...</span>
+      </div>
+    </section>
+
+    <section class="question-grid" id="questionGrid" aria-live="polite"></section>
+
+    <p class="footer-note">
+      This page is powered by the same live spreadsheet integration as the main site and updates automatically while your presentation is open.
+    </p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="survey-data.js"></script>
+  <script src="presentation.js"></script>
+</body>
+</html>
