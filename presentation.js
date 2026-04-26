@@ -309,6 +309,25 @@
     `;
   }
 
+  function optionsMarkup(question) {
+    if (!question.series || !question.series.length) return '';
+    // Filter out "Other" or numeric bins if they feel like noise, but user asked for "options given"
+    // For categorical/multi-select, these are the actual options.
+    const labels = question.series
+      .filter(s => s.label !== 'Other')
+      .map(s => `<span class="option-pill">${safe(s.label)}</span>`)
+      .join('');
+    
+    if (!labels) return '';
+
+    return `
+      <div class="options-container">
+        <span class="detail-label">Options identified in responses</span>
+        <div class="options-list">${labels}</div>
+      </div>
+    `;
+  }
+
   function commentMarkup(question) {
     if (question.kind !== 'text' || !question.comments.length) return '';
 
@@ -352,6 +371,7 @@
           <div class="detail-grid">${questionMetaLine(question, chartType)}</div>
           <p class="insight-signal" style="color:var(--green-deep); font-weight:500; margin-bottom:0.5rem; font-size:0.95rem"></p>
           <p class="insight-rationale" style="color:var(--muted); line-height:1.6; font-size:0.88rem"></p>
+          ${optionsMarkup(question)}
           ${commentMarkup(question)}
         </div>
       </div>
@@ -413,9 +433,34 @@
     renderQuestions(state.data);
   }
 
+  function togglePresenterMode(active) {
+    if (active) {
+      document.body.classList.add('is-presenting');
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch((err) => {
+          console.warn('Fullscreen denied:', err);
+        });
+      }
+    } else {
+      document.body.classList.remove('is-presenting');
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
   function bindControls() {
     document.getElementById('refreshNow').addEventListener('click', refreshDashboard);
     document.getElementById('resetCharts').addEventListener('click', resetChartChoices);
+    document.getElementById('startPresenting').addEventListener('click', () => togglePresenterMode(true));
+    document.getElementById('exitPresent').addEventListener('click', () => togglePresenterMode(false));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && document.body.classList.contains('is-presenting')) {
+        togglePresenterMode(false);
+      }
+    });
+
     document.getElementById('questionJump').addEventListener('change', (event) => {
       if (!event.target.value) return;
       document.getElementById(event.target.value)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
