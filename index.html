@@ -570,6 +570,43 @@
     gap: 3rem;
     align-items: start;
   }
+  .survey-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: -0.75rem 0 2rem;
+    padding: 1.1rem 1.2rem;
+    background: linear-gradient(135deg, rgba(34,201,122,0.08), rgba(245,158,26,0.08));
+    border: 1px solid rgba(34,201,122,0.16);
+    border-radius: 16px;
+  }
+  .survey-actions p {
+    font-size: 0.82rem;
+    color: #355043;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+  .dashboard-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 12px 18px;
+    background: var(--green-deep);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 28px rgba(10,61,43,0.2);
+  }
+  .dashboard-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(10,61,43,0.25);
+  }
   .survey-left {}
   .survey-embed-box {
     background: #fff;
@@ -697,6 +734,7 @@
   @media (max-width: 900px) {
     .survey-wrap { grid-template-columns: 1fr; }
     .survey-embed-box iframe { height: 480px; }
+    .survey-actions { align-items: flex-start; }
   }
 
   /* ── DIVIDER ── */
@@ -740,6 +778,7 @@
     <li><a href="#analysis">Analysis</a></li>
     <li><a href="#recommendation">Recommendations</a></li>
     <li><a href="#team">Team</a></li>
+    <li><a href="presentation.html">Presentation</a></li>
     <li><a href="#survey" style="color:var(--green-vivid)">Survey</a></li>
   </ul>
 </nav>
@@ -757,6 +796,7 @@
     <p class="hero-sub">How SELCO India's user-centered ecosystem model is redefining rural energy access — transforming solar power from a product into a catalyst for sustainable livelihoods.</p>
     <div class="hero-ctas">
       <a href="#survey" class="btn-primary">Take the Survey</a>
+      <a href="presentation.html" class="btn-primary" style="background:var(--amber);color:#fff">Open Presentation</a>
       <a href="#about" class="btn-outline">Explore the Research</a>
     </div>
   </div>
@@ -1250,6 +1290,10 @@
       <div class="section-divider"></div>
       <p class="section-lead">We'd love to hear what you think about SELCO's model. Fill in our short survey below — your responses are displayed live on this page.</p>
     </div>
+    <div class="survey-actions reveal">
+      <p>Need a presentation-ready view? Open the integrated dashboard for animated charts, question-by-question chart selection, and live spreadsheet updates without leaving the website.</p>
+      <a class="dashboard-link" href="presentation.html">Open live presentation dashboard</a>
+    </div>
     <div class="survey-wrap">
       <!-- GOOGLE FORM EMBED -->
       <div class="survey-left reveal">
@@ -1321,9 +1365,10 @@
   <div class="logo">SELCO India Research</div>
   <p style="margin-bottom:0.5rem">Case Study: Rural Innovation Model — A User-Centered Ecosystem Approach to Sustainable Livelihoods</p>
   <p>Research by <strong style="color:rgba(255,255,255,0.6)">Pitch Perfects</strong> · Ajeenkya DY Patil University · Entrepreneurship for Engineers · 2026</p>
-  <p style="margin-top:1rem">Learn more about SELCO India at <a href="https://selco-india.com" target="_blank">selco-india.com</a></p>
+  <p style="margin-top:1rem">Learn more about SELCO India at <a href="https://selco-india.com" target="_blank">selco-india.com</a> · <a href="presentation.html">Open presentation dashboard</a></p>
 </footer>
 
+<script src="survey-data.js"></script>
 <script>
   // ── Scroll reveal ──
   const observer = new IntersectionObserver((entries) => {
@@ -1336,111 +1381,32 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ── Live Responses from Google Sheets ──
-  const SHEET_ID = '1BpG8aqqrNogPZV9ra8f7eR5zdsilRQOSNlwFzr5vb_M';
-  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
-
-  // Google Sheets gviz returns timestamps as "Date(2025,3,26,14,30,0)" strings
-  function parseGvizDate(val) {
-    if (!val) return null;
-    // If it's already a JS Date-like string
-    if (typeof val === 'string' && val.startsWith('Date(')) {
-      const parts = val.replace('Date(', '').replace(')', '').split(',').map(Number);
-      // months are 0-indexed in this format
-      return new Date(parts[0], parts[1], parts[2], parts[3] || 0, parts[4] || 0, parts[5] || 0);
-    }
-    const d = new Date(val);
-    return isNaN(d) ? null : d;
-  }
-
-  function timeAgo(val) {
-    const d = parseGvizDate(val);
-    if (!d) return '';
-    const diff = Math.floor((Date.now() - d) / 1000);
-    if (diff < 60) return 'Just now';
-    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-    if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
-  }
-
-  function initials(name) {
-    if (!name || !name.trim()) return '?';
-    return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
-  }
-
-  // Shorten long question labels to a compact Q-number format
-  function shortLabel(label, idx) {
-    // Strip leading numbers like "1. " or "1) "
-    const clean = label.replace(/^\d+[\.\)]\s*/, '').trim();
-    if (clean.length <= 42) return clean;
-    return clean.slice(0, 42) + '…';
-  }
-
-  // Pick a highlight answer for the card preview (first non-empty answer col)
-  function getHighlightAnswer(row, answerCols, cols) {
-    for (const i of answerCols) {
-      const v = row.c[i]?.v;
-      if (v && String(v).trim()) return { label: shortLabel(cols[i].label, i), value: String(v).trim() };
-    }
-    return null;
-  }
-
   async function loadResponses() {
     const list = document.getElementById('responsesList');
     const badge = document.getElementById('responseCountBadge');
     list.innerHTML = '<div class="responses-loading"><div class="spinner"></div>Fetching latest responses…</div>';
 
     try {
-      const res = await fetch(SHEET_URL);
-      const text = await res.text();
-      const json = JSON.parse(text.replace(/^[^\{]*/, '').replace(/\);?\s*$/, ''));
-      const rows = json.table?.rows || [];
-      const cols = json.table?.cols || [];
+      const dataset = await window.SELCOSurveyData.loadSurveyData();
+      const responses = window.SELCOSurveyData.getPublicResponses(dataset, { limit: 50 });
+      badge.textContent = `${responses.length} response${responses.length !== 1 ? 's' : ''}`;
 
-      if (cols.length === 0) throw new Error('No columns found — is the sheet public?');
-
-      let tsIdx = 0, nameIdx = -1, privacyIdx = -1, professionIdx = -1;
-      cols.forEach((c, i) => {
-        const l = (c.label || '').toLowerCase();
-        if (l.includes('timestamp')) tsIdx = i;
-        if ((l.includes('your name') || l === 'name') && !l.includes('privacy')) nameIdx = i;
-        if (l.includes('privacy') || l.includes('can we use') || l.includes('use your name')) privacyIdx = i;
-        if (l.includes('field of study') || l.includes('profession') || l.includes('occupation')) professionIdx = i;
-      });
-
-      const answerCols = cols.map((_, i) => i).filter(i => i !== tsIdx && i !== nameIdx && i !== privacyIdx);
-
-      // Only show consented responses
-      const consented = rows.filter(r => {
-        if (privacyIdx === -1) return true;
-        const v = String(r.c[privacyIdx]?.v || '').toLowerCase();
-        return v.includes('yes') || v === 'true';
-      });
-
-      badge.textContent = `${consented.length} response${consented.length !== 1 ? 's' : ''}`;
-
-      if (consented.length === 0) {
+      if (responses.length === 0) {
         list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
-          No public responses yet — be the first! 🌱</div>`;
+          No public responses yet. Share the survey to start the dashboard. 🌱</div>`;
         return;
       }
 
       list.innerHTML = '';
-      [...consented].reverse().forEach((row, idx) => {
-        const rawName = nameIdx !== -1 ? (row.c[nameIdx]?.v || '') : '';
-        const displayName = rawName.trim() || 'Anonymous';
-        const tsVal = row.c[tsIdx]?.v || '';
-        const profession = professionIdx !== -1 ? (row.c[professionIdx]?.v || '') : '';
-
-        // Build compact answer pills — show values only (no long labels)
-        const answerPills = answerCols
-          .map(i => ({ label: shortLabel(cols[i].label, i), val: String(row.c[i]?.v || '').trim() }))
-          .filter(a => a.val)
+      responses.forEach((response, idx) => {
+        const safeName = window.SELCOSurveyData.escapeHTML(response.displayName);
+        const safeProfession = window.SELCOSurveyData.escapeHTML(response.profession || '');
+        const answerPills = response.answers
+          .filter(answer => answer.value)
           .map(a => `
             <div style="margin-bottom:0.55rem">
-              <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--green-mid);margin-bottom:2px">${a.label}</div>
-              <div style="font-size:0.83rem;color:#2a3d30;line-height:1.5;padding-left:0.6rem;border-left:2px solid var(--green-vivid)">${a.val}</div>
+              <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--green-mid);margin-bottom:2px">${window.SELCOSurveyData.escapeHTML(a.label)}</div>
+              <div style="font-size:0.83rem;color:#2a3d30;line-height:1.5;padding-left:0.6rem;border-left:2px solid var(--green-vivid)">${window.SELCOSurveyData.escapeHTML(a.value)}</div>
             </div>`).join('');
 
         const card = document.createElement('div');
@@ -1448,10 +1414,10 @@
         card.style.animationDelay = `${idx * 0.04}s`;
         card.innerHTML = `
           <div class="response-card-header">
-            <div class="response-avatar">${initials(displayName)}</div>
+            <div class="response-avatar">${window.SELCOSurveyData.initials(response.displayName)}</div>
             <div style="flex:1;min-width:0">
-              <div class="response-name">${displayName}</div>
-              <div class="response-time">${profession ? `<span style="color:var(--green-mid)">${profession}</span> · ` : ''}${timeAgo(tsVal)}</div>
+              <div class="response-name">${safeName}</div>
+              <div class="response-time">${response.profession ? `<span style="color:var(--green-mid)">${safeProfession}</span> · ` : ''}${window.SELCOSurveyData.timeAgo(response.timestamp)}</div>
             </div>
           </div>
           <div style="margin-top:0.75rem">${answerPills}</div>
@@ -1466,7 +1432,7 @@
           <div class="err-title">⚙️ One quick setup step needed</div>
           Your Google Sheet responses will appear here automatically — you just need to make the sheet public once:
           <ol>
-            <li>Open your sheet: <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing" target="_blank">click here ↗</a></li>
+            <li>Open your sheet: <a href="${window.SELCOSurveyData.SHEET_EDIT_URL}" target="_blank">click here ↗</a></li>
             <li>Click <strong>Share</strong> (top-right button)</li>
             <li>Under "General access", change to <strong>Anyone with the link</strong></li>
             <li>Set role to <strong>Viewer</strong> and click <strong>Done</strong></li>
