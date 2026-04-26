@@ -16,13 +16,13 @@
   };
 
   const typeHelp = {
-    bar: 'Best for comparing option counts side by side.',
-    horizontalBar: 'Best when answer labels are long and need more room.',
-    doughnut: 'Best for showing composition at a glance.',
-    pie: 'Best for simple share-of-total questions.',
-    polarArea: 'Best for emphasis when category magnitudes should feel distinct.',
-    radar: 'Best for comparing overall response profiles.',
-    line: 'Best for showing progression across ordered values or bins.'
+    bar: '<strong>What is it:</strong> A vertical comparison of frequencies. <br><strong>Why this chart:</strong> It makes comparing the volume of different responses intuitive and helps quickly identify the majority opinion.',
+    horizontalBar: '<strong>What is it:</strong> A landscape-oriented count of responses. <br><strong>Why this chart:</strong> This is ideal when answer labels are long; it ensures every word is readable while still allowing for an accurate length-based comparison.',
+    doughnut: '<strong>What is it:</strong> A circular composition ring. <br><strong>Why this chart:</strong> It focuses on the "share" of each answer, helping the audience visualize how the total pool of responses is distributed among parts.',
+    pie: '<strong>What is it:</strong> A classic segmented circle. <br><strong>Why this chart:</strong> Best for simple, high-level summaries where you want to show the proportional relationship between a few key categories.',
+    polarArea: '<strong>What is it:</strong> A circular plot with variable radii. <br><strong>Why this chart:</strong> It draws visual attention to the magnitude of responses, making outliers and dominant trends feel more impactful than in a standard pie chart.',
+    radar: '<strong>What is it:</strong> A multi-axis spider diagram. <br><strong>Why this chart:</strong> It maps data across multiple points to show a "response profile," which is excellent for spotting unique patterns in how people answered.',
+    line: '<strong>What is it:</strong> A connected series of data points. <br><strong>Why this chart:</strong> Perfect for answers that follow a sequence (like 1-5 scales), as it visualizes the flow and progression from one value to the next.'
   };
 
   function formatCount(value, noun) {
@@ -128,22 +128,22 @@
     });
   }
 
-  function cardInsight(question, chartType) {
-    if (!question.topEntry) return typeHelp[chartType];
+  function cardInsight(question) {
+    if (!question.topEntry) return 'No clear data signals detected yet.';
 
     if (question.kind === 'text') {
-      return `Top keyword "${question.topEntry.label}" appears ${question.topEntry.count} times. ${typeHelp[chartType]}`;
+      return `<strong>Top signal:</strong> The keyword "${question.topEntry.label}" leads with ${question.topEntry.count} mentions.`;
     }
 
     if (question.kind === 'multi-select') {
-      return `"${question.topEntry.label}" leads with ${question.topEntry.count} selections (${formatPercent(question.topEntry.percentage)} of all selections). ${typeHelp[chartType]}`;
+      return `<strong>Top signal:</strong> "${question.topEntry.label}" is the most selected option (${question.topEntry.count} times, ${formatPercent(question.topEntry.percentage)} of selections).`;
     }
 
     if (question.kind === 'numeric') {
-      return `The busiest value band is "${question.topEntry.label}" with ${question.topEntry.count} responses. ${typeHelp[chartType]}`;
+      return `<strong>Top signal:</strong> Most responses fall in the "${question.topEntry.label}" range (${question.topEntry.count} entries).`;
     }
 
-    return `"${question.topEntry.label}" is the most common answer with ${question.topEntry.count} responses (${formatPercent(question.topEntry.percentage)}). ${typeHelp[chartType]}`;
+    return `<strong>Top signal:</strong> "${question.topEntry.label}" is the most common answer, representing ${formatPercent(question.topEntry.percentage)} of total responses.`;
   }
 
   function datasetFor(question, chartType, colors) {
@@ -350,7 +350,8 @@
         </div>
         <div class="question-details">
           <div class="detail-grid">${questionMetaLine(question, chartType)}</div>
-          <p class="insight"></p>
+          <p class="insight-signal" style="color:var(--green-deep); font-weight:500; margin-bottom:0.5rem; font-size:0.95rem"></p>
+          <p class="insight-rationale" style="color:var(--muted); line-height:1.6; font-size:0.88rem"></p>
           ${commentMarkup(question)}
         </div>
       </div>
@@ -358,14 +359,15 @@
 
     const canvas = card.querySelector('canvas');
     mountChart(question, chartType, canvas);
-    card.querySelector('.insight').textContent = cardInsight(question, chartType);
+    card.querySelector('.insight-signal').innerHTML = cardInsight(question);
+    card.querySelector('.insight-rationale').innerHTML = typeHelp[chartType];
 
     const select = card.querySelector('select');
     select.addEventListener('change', (event) => {
       const nextType = event.target.value;
       saveSelectedType(question, nextType);
       card.querySelector('.detail-grid').innerHTML = questionMetaLine(question, nextType);
-      card.querySelector('.insight').textContent = cardInsight(question, nextType);
+      card.querySelector('.insight-rationale').innerHTML = typeHelp[nextType];
       mountChart(question, nextType, canvas);
     });
 
