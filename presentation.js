@@ -419,6 +419,7 @@
       state.data = data;
       renderOverview(data);
       renderQuestions(data);
+      renderSpreadsheet(data);
       setStatus('Live dashboard is up to date.', 'success');
     } catch (error) {
       console.error(error);
@@ -537,6 +538,63 @@
         document.getElementById(event.target.value)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
+
+    document.getElementById('toggleDataView').addEventListener('click', toggleDataView);
+  }
+
+  function toggleDataView() {
+    const grid = document.getElementById('questionGrid');
+    const sheet = document.getElementById('spreadsheetView');
+    const btn = document.getElementById('toggleDataView');
+    
+    if (sheet.style.display === 'none') {
+      sheet.style.display = 'block';
+      grid.style.display = 'none';
+      btn.textContent = 'View Charts';
+    } else {
+      sheet.style.display = 'none';
+      grid.style.display = 'grid';
+      btn.textContent = 'View Spreadsheet';
+    }
+  }
+
+  function renderSpreadsheet(data) {
+    const container = document.getElementById('spreadsheetTableContainer');
+    if (!container) return;
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headerRow = document.createElement('tr');
+    data.cols.forEach(col => {
+      const th = document.createElement('th');
+      th.textContent = col.label;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    data.rows.forEach(row => {
+      const tr = document.createElement('tr');
+      data.cols.forEach((_, i) => {
+        const td = document.createElement('td');
+        const cell = row.c[i];
+        if (cell && cell.v !== null) {
+          if (typeof cell.v === 'string' && cell.v.startsWith('Date(')) {
+            td.textContent = window.SELCOSurveyData.timeAgo(cell.v);
+          } else {
+            td.textContent = cell.f || cell.v;
+          }
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.innerHTML = '';
+    container.appendChild(table);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
