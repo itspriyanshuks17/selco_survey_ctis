@@ -663,14 +663,25 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .responses-error {
-    text-align: center;
     padding: 1.5rem;
-    background: #fff5f5;
-    border: 1px solid #fecaca;
-    border-radius: 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 14px;
     font-size: 0.82rem;
-    color: #b91c1c;
+    color: #78350f;
   }
+  .responses-error .err-title {
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .responses-error ol {
+    margin: 0.5rem 0 0.75rem 1.1rem;
+    line-height: 1.9;
+    color: #92400e;
+  }
+  .responses-error a { color: var(--green-mid); text-decoration: underline; }
   .privacy-tag {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 0.7rem;
@@ -779,36 +790,40 @@
       <p class="section-lead" style="color:rgba(255,255,255,0.6)">A glimpse into the lives and landscapes SELCO's innovation touches — from fishing coasts to tribal heartlands.</p>
     </div>
     <div class="gallery-grid reveal">
+      <!-- Large feature image: solar panels on rural rooftop -->
       <div class="gallery-item">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Solar_panels_on_a_rural_Indian_home.jpg/1280px-Solar_panels_on_a_rural_Indian_home.jpg"
-             onerror="this.src='https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80'"
-             alt="Solar panels on a rural Indian home">
+        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=85&fit=crop"
+             alt="Solar panels installed on a rural rooftop">
         <span class="gallery-tag">Rural India</span>
-        <div class="gallery-caption">Solar-powered homes changing the fabric of rural life</div>
+        <div class="gallery-caption">Solar panels bringing reliable power to homes that the grid never reached</div>
       </div>
+      <!-- Village woman with solar lantern -->
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80"
-             alt="Solar energy panels in India">
+        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=85&fit=crop"
+             alt="Rural community members with clean energy">
+        <span class="gallery-tag">Communities</span>
+        <div class="gallery-caption">Clean energy as a foundation for dignified livelihoods</div>
+      </div>
+      <!-- Solar field / panels at golden hour -->
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1548345680-f5475ea5df84?w=600&q=85&fit=crop"
+             alt="Solar energy field at sunset">
         <span class="gallery-tag">Clean Energy</span>
-        <div class="gallery-caption">Harnessing sunlight for sustainable development</div>
+        <div class="gallery-caption">Decentralised solar — power without the grid</div>
       </div>
+      <!-- Fishing boats on Indian coast -->
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80"
-             alt="Solar field sunrise">
-        <span class="gallery-tag">Innovation</span>
-        <div class="gallery-caption">Renewable energy as the new foundation of rural enterprise</div>
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1497435334941-8c899a9bd714?w=600&q=80"
-             alt="Fishing boats at sunrise">
+        <img src="https://images.unsplash.com/photo-1561553590-267fc716698a?w=600&q=85&fit=crop"
+             alt="Fishing boats on the Indian coast at sunrise">
         <span class="gallery-tag">Tamil Nadu</span>
-        <div class="gallery-caption">Fishing communities empowered with solar navigation lights</div>
+        <div class="gallery-caption">Fishing communities sailing safer with solar navigation lights</div>
       </div>
+      <!-- Women micro-enterprise / market -->
       <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80"
-             alt="Women and community empowerment">
+        <img src="https://images.unsplash.com/photo-1607748851687-ba9a10438621?w=600&q=85&fit=crop"
+             alt="Women-led microenterprise in rural India">
         <span class="gallery-tag">Livelihoods</span>
-        <div class="gallery-caption">Women-led enterprises thriving with reliable clean energy</div>
+        <div class="gallery-caption">Women-led enterprises flourishing with affordable, reliable energy</div>
       </div>
     </div>
   </div>
@@ -1281,6 +1296,10 @@
             ↺ Refresh
           </button>
         </div>
+        <div style="margin-top:1.25rem;padding:1rem 1.1rem;background:#f0faf5;border:1px solid rgba(34,201,122,0.2);border-radius:10px;font-size:0.75rem;color:var(--muted);line-height:1.7">
+          <strong style="color:var(--green-mid)">📋 Not seeing responses?</strong><br>
+          Open your <a href="https://docs.google.com/spreadsheets/d/17kgCRTz1ODbfxlKsMptYpSfRfbeDt1dB26CNL1xU7yM/edit?usp=sharing" target="_blank" style="color:var(--green-mid)">Google Sheet ↗</a> → Share → Anyone with the link → Viewer → Done. Then hit Refresh above.
+        </div>
       </div>
     </div>
   </div>
@@ -1433,12 +1452,16 @@
       console.error('Responses error:', err);
       list.innerHTML = `
         <div class="responses-error">
-          <strong>Couldn't load responses.</strong><br>
-          Make sure the Google Sheet is set to <em>"Anyone with the link → Viewer"</em>.<br>
-          <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing"
-             target="_blank" style="color:var(--green-mid);font-size:0.8rem;display:inline-block;margin-top:0.5rem">
-            Open sheet to check sharing ↗
-          </a>
+          <div class="err-title">⚙️ One quick setup step needed</div>
+          Your Google Sheet responses will appear here automatically — you just need to make the sheet public once:
+          <ol>
+            <li>Open your sheet: <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing" target="_blank">click here ↗</a></li>
+            <li>Click <strong>Share</strong> (top-right button)</li>
+            <li>Under "General access", change to <strong>Anyone with the link</strong></li>
+            <li>Set role to <strong>Viewer</strong> and click <strong>Done</strong></li>
+            <li>Come back and hit <strong>↺ Refresh</strong> below</li>
+          </ol>
+          Responses will then load live and auto-refresh every 60 seconds. 🌱
         </div>`;
     }
   }
