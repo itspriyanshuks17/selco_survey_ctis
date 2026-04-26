@@ -1,4 +1,3 @@
-
 # ☀️ SELCO India — *Lighting Lives, Powering Livelihoods*
 
 > *"Rural innovation succeeds when it is designed from the user's point of view — not the supplier's."*
@@ -19,14 +18,15 @@ Our site documents that story. Completely. With real data, live survey responses
 
 ## ✨ Features
 
-| Feature                           | What it does                                                               |
-| --------------------------------- | -------------------------------------------------------------------------- |
-| 🖼️**Image Gallery**       | A cinematic photo grid bringing SELCO's communities to life                |
-| 📋**Embedded Survey**       | Google Form integrated directly into the page                              |
-| 🔴**Live Responses**        | Pulls real-time data from Google Sheets — auto-refreshes every 60 seconds |
-| 🔒**Privacy-Aware Display** | Only shows responses from participants who consented                       |
-| 📱**Fully Responsive**      | Works beautifully on mobile, tablet, and desktop                           |
-| ✨**Scroll Animations**     | Smooth reveal effects on every section                                     |
+| Feature | What it does |
+| --- | --- |
+| 🖼️ **Image Gallery** | A cinematic photo grid bringing SELCO's communities to life |
+| 📋 **Embedded Survey** | Google Form integrated directly into the page |
+| 🔴 **Live Responses** | Pulls real-time data from Google Sheets — auto-refreshes every 60 seconds |
+| 🔒 **Privacy-Aware Display** | Only shows responses from participants who consented |
+| 📊 **Survey Dashboard** | Interactive charts with 6 chart types, per-question chart picker, animated |
+| 📱 **Fully Responsive** | Works beautifully on mobile, tablet, and desktop |
+| ✨ **Scroll Animations** | Smooth reveal effects on every section |
 
 ---
 
@@ -38,18 +38,20 @@ Hero  →  Gallery  →  About  →  Problem  →  Methodology
     →  Recommendations  →  Team  →  Survey & Live Responses
 ```
 
+**Dashboard** (`dashboard.html`) — standalone presentation page with live charts.
+
 ---
 
 ## 👥 Team — Pitch Perfects
 
-| Name                   | Initials |
-| ---------------------- | -------- |
-| Neha Gaikwad           | NG       |
-| Meghana Prathipati     | MP       |
-| Vaishnavi Jadhav       | VJ       |
-| Saylee Shelar          | SS       |
-| Vaibhav Gulage         | VG       |
-| Priyanshu Kumar Sharma | PS       |
+| Name | Initials |
+| --- | --- |
+| Neha Gaikwad | NG |
+| Meghana Prathipati | MP |
+| Vaishnavi Jadhav | VJ |
+| Saylee Shelar | SS |
+| Vaibhav Gulage | VG |
+| Priyanshu Kumar Sharma | PKS |
 
 **Subject Guide:** Prof. Parmeshwari Aland
 **University:** Ajeenkya DY Patil University, Pune
@@ -58,39 +60,11 @@ Hero  →  Gallery  →  About  →  Problem  →  Methodology
 
 ---
 
-## 🚀 Deploy to GitHub Pages
-
-### One-time setup
-
-1. Push this repository to GitHub
-2. Go to **Settings → Pages**
-3. Under *Source*, select **GitHub Actions**
-4. That's it — the `deploy.yml` workflow handles everything automatically on every push to `main`
-
-Your live site will be at:
-
-```
-https://itspriyanshuks17.github.io/selco_survey_ctis/
-```
-
-### Make the Google Sheet public (required for live responses)
-
-1. Open your Google Sheet: [responses sheet](https://docs.google.com/spreadsheets/d/17kgCRTz1ODbfxlKsMptYpSfRfbeDt1dB26CNL1xU7yM)
-2. Click **Share → Anyone with the link → Viewer**
-3. The live responses panel on the site will start populating automatically
-
-### Fix the Google Form embed
-
-1. Open your form at [forms.gle/dbopbiyLbBYNZJZ26](https://forms.gle/dbopbiyLbBYNZJZ26)
-2. Click **Send → Embed (< >)** → copy the `src` URL
-3. Replace the placeholder `src` in the `<iframe>` inside `index.html`
-
----
-
 ## 🏗️ Tech Stack
 
 ```
 HTML5 + CSS3 + Vanilla JS      no frameworks, no build tools
+Chart.js 4                     interactive animated charts (dashboard)
 Google Fonts (DM Serif Display + DM Sans)
 Google Forms (survey embed)
 Google Sheets gviz API (live response fetching)
@@ -102,9 +76,10 @@ GitHub Actions (automated deployment)
 ## 📁 Files
 
 ```
-index.html      — the entire website (single file, self-contained)
-deploy.yml      — GitHub Actions workflow for Pages deployment
-README.md       — you're reading it
+index.html        — the entire website (single file, self-contained)
+dashboard.html    — live survey dashboard with animated charts
+deploy.yml        — GitHub Actions workflow for Pages deployment
+README.md         — you're reading it
 ```
 
 ---
