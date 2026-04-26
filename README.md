@@ -70,7 +70,7 @@ Hero  →  Gallery  →  About  →  Problem  →  Methodology
 Your live site will be at:
 
 ```
-https://<your-username>.github.io/<repo-name>/
+https://itspriyanshuks17.github.io/selco_survey_ctis/
 ```
 
 ### Make the Google Sheet public (required for live responses)
