@@ -110,9 +110,13 @@
 
     cols.forEach((col, index) => {
       const label = normalizeText(col.label);
-      if (label.includes('timestamp')) timestampIndex = index;
-      if ((label.includes('your name') || label === 'name' || label.includes('full name')) && !label.includes('privacy')) {
+      if (label.includes('timestamp')) {
+        timestampIndex = index;
+        hiddenColumns.add(index);
+      }
+      if ((label.includes('your name') || label === 'name' || label.includes('full name') || label.includes('enter your name')) && !label.includes('privacy')) {
         nameIndex = index;
+        hiddenColumns.add(index);
       }
       if (
         label.includes('privacy') ||
@@ -122,14 +126,19 @@
         label.includes('share your response')
       ) {
         privacyIndex = index;
+        hiddenColumns.add(index);
       }
       if (
         label.includes('field of study') ||
         label.includes('profession') ||
         label.includes('occupation') ||
-        label.includes('role')
+        label.includes('role') ||
+        label.includes('branch') ||
+        label.includes('program') ||
+        label.includes('course')
       ) {
         professionIndex = index;
+        hiddenColumns.add(index);
       }
       if (
         label.includes('email') ||
@@ -138,15 +147,14 @@
         label.includes('contact') ||
         label.includes('whatsapp') ||
         label.includes('roll number') ||
-        label.includes('student id')
+        label.includes('student id') ||
+        label.includes('usn') ||
+        label.includes('semester') ||
+        label.includes('year')
       ) {
         hiddenColumns.add(index);
       }
     });
-
-    [timestampIndex, nameIndex, privacyIndex, professionIndex]
-      .filter((index) => index >= 0)
-      .forEach((index) => hiddenColumns.add(index));
 
     const answerColumns = cols
       .map((_, index) => index)
