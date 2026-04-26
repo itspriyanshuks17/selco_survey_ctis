@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SELCO India — Lighting Lives, Powering Livelihoods</title>
+<title>SELCO India — Rural Energy Survey | Pitch Perfects</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -721,7 +721,7 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">SELCO India</a>
+  <a class="nav-logo" href="#">SELCO India · Survey</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#problem">Problem</a></li>
@@ -741,12 +741,12 @@
     <circle cx="1100" cy="600" r="150" fill="#f59e1a"/>
   </svg>
   <div class="hero-text">
-    <div class="hero-kicker">Research Case Study · 2025</div>
+    <div class="hero-kicker">Research Survey · GEX209 · 2025</div>
     <h1 class="hero-title">Lighting Lives,<br><em>Powering Livelihoods</em></h1>
     <p class="hero-sub">How SELCO India's user-centered ecosystem model is redefining rural energy access — transforming solar power from a product into a catalyst for sustainable livelihoods.</p>
     <div class="hero-ctas">
-      <a href="#about" class="btn-primary">Explore the Research</a>
-      <a href="#team" class="btn-outline">Meet the Team</a>
+      <a href="#survey" class="btn-primary">Take the Survey</a>
+      <a href="#about" class="btn-outline">Explore the Research</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -1239,15 +1239,22 @@
       <!-- GOOGLE FORM EMBED -->
       <div class="survey-left reveal">
         <div class="survey-embed-box">
+          <!--
+            TO FIX THIS FORM EMBED:
+            1. Go to https://forms.gle/dbopbiyLbBYNZJZ26
+            2. Click the 3-dot menu (⋮) → "Get pre-filled link" OR go to Send → Embed
+            3. Copy the full URL that looks like:
+               https://docs.google.com/forms/d/e/LONG_ID_HERE/viewform?embedded=true
+            4. Replace the src below with that URL
+          -->
           <iframe
+            id="surveyFrame"
             src="https://docs.google.com/forms/d/e/1FAIpQLScN3kSwLBHqrTiHzGFkUf4MbY7s6-ZoIHx-s2i1vBbWNGaIIA/viewform?embedded=true"
             title="SELCO India Research Survey"
-            loading="lazy">
+            loading="lazy"
+            onload="this.style.minHeight='600px'">
             Loading survey…
           </iframe>
-          <!-- Note: Replace the src above with your actual form's embed URL.
-               Go to your form → Send → Embed → copy the iframe src.
-               Your form link: https://forms.gle/dbopbiyLbBYNZJZ26 -->
         </div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem;text-align:center">
           Having trouble? <a href="https://forms.gle/dbopbiyLbBYNZJZ26" target="_blank" style="color:var(--green-mid)">Open the form directly ↗</a>
@@ -1301,23 +1308,52 @@
 
   // ── Live Responses from Google Sheets ──
   const SHEET_ID = '17kgCRTz1ODbfxlKsMptYpSfRfbeDt1dB26CNL1xU7yM';
-  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
-  function timeAgo(dateStr) {
-    try {
-      const d = new Date(dateStr);
-      if (isNaN(d)) return dateStr;
-      const diff = Math.floor((Date.now() - d) / 1000);
-      if (diff < 60) return 'Just now';
-      if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-      if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-      return `${Math.floor(diff/86400)}d ago`;
-    } catch { return dateStr; }
+  // Google Sheets gviz returns timestamps as "Date(2025,3,26,14,30,0)" strings
+  function parseGvizDate(val) {
+    if (!val) return null;
+    // If it's already a JS Date-like string
+    if (typeof val === 'string' && val.startsWith('Date(')) {
+      const parts = val.replace('Date(', '').replace(')', '').split(',').map(Number);
+      // months are 0-indexed in this format
+      return new Date(parts[0], parts[1], parts[2], parts[3] || 0, parts[4] || 0, parts[5] || 0);
+    }
+    const d = new Date(val);
+    return isNaN(d) ? null : d;
+  }
+
+  function timeAgo(val) {
+    const d = parseGvizDate(val);
+    if (!d) return '';
+    const diff = Math.floor((Date.now() - d) / 1000);
+    if (diff < 60) return 'Just now';
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
   }
 
   function initials(name) {
-    if (!name || name.trim() === '') return '?';
+    if (!name || !name.trim()) return '?';
     return name.trim().split(/\s+/).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+  }
+
+  // Shorten long question labels to a compact Q-number format
+  function shortLabel(label, idx) {
+    // Strip leading numbers like "1. " or "1) "
+    const clean = label.replace(/^\d+[\.\)]\s*/, '').trim();
+    if (clean.length <= 42) return clean;
+    return clean.slice(0, 42) + '…';
+  }
+
+  // Pick a highlight answer for the card preview (first non-empty answer col)
+  function getHighlightAnswer(row, answerCols, cols) {
+    for (const i of answerCols) {
+      const v = row.c[i]?.v;
+      if (v && String(v).trim()) return { label: shortLabel(cols[i].label, i), value: String(v).trim() };
+    }
+    return null;
   }
 
   async function loadResponses() {
@@ -1328,86 +1364,85 @@
     try {
       const res = await fetch(SHEET_URL);
       const text = await res.text();
-      // Google wraps JSON in /*O_o*/ google.visualization.Query.setResponse(...)
-      const json = JSON.parse(text.replace(/^[^{]*/, '').replace(/\);?\s*$/, ''));
-      const rows = json.table.rows || [];
-      const cols = json.table.cols || [];
+      const json = JSON.parse(text.replace(/^[^\{]*/, '').replace(/\);?\s*$/, ''));
+      const rows = json.table?.rows || [];
+      const cols = json.table?.cols || [];
 
-      // Find column indices by label (case-insensitive)
-      const colLabel = (i) => (cols[i]?.label || '').toLowerCase();
-      let tsIdx = -1, nameIdx = -1, privacyIdx = -1;
-      // The last column is privacy. Timestamp is always col 0.
+      if (cols.length === 0) throw new Error('No columns found — is the sheet public?');
+
+      let tsIdx = 0, nameIdx = -1, privacyIdx = -1, professionIdx = -1;
       cols.forEach((c, i) => {
-        const l = c.label.toLowerCase();
+        const l = (c.label || '').toLowerCase();
         if (l.includes('timestamp')) tsIdx = i;
-        if (l.includes('name') && !l.includes('privacy')) nameIdx = i;
-        if (l.includes('privacy') || l.includes('use your name') || l.includes('can we use')) privacyIdx = i;
+        if ((l.includes('your name') || l === 'name') && !l.includes('privacy')) nameIdx = i;
+        if (l.includes('privacy') || l.includes('can we use') || l.includes('use your name')) privacyIdx = i;
+        if (l.includes('field of study') || l.includes('profession') || l.includes('occupation')) professionIdx = i;
       });
-      if (tsIdx === -1) tsIdx = 0;
 
-      // Identify "answer" columns — everything except timestamp, name, privacy
-      const answerCols = cols.map((c, i) => i).filter(i => i !== tsIdx && i !== nameIdx && i !== privacyIdx);
+      const answerCols = cols.map((_, i) => i).filter(i => i !== tsIdx && i !== nameIdx && i !== privacyIdx);
 
-      // Filter to only consented rows
+      // Only show consented responses
       const consented = rows.filter(r => {
         if (privacyIdx === -1) return true;
-        const v = (r.c[privacyIdx]?.v || '').toString().toLowerCase();
-        return v.includes('yes') || v.includes('sure') || v.includes('ok') || v === 'true';
+        const v = String(r.c[privacyIdx]?.v || '').toLowerCase();
+        return v.includes('yes') || v === 'true';
       });
 
       badge.textContent = `${consented.length} response${consented.length !== 1 ? 's' : ''}`;
 
       if (consented.length === 0) {
-        list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">No public responses yet — be the first to fill in the survey! 🌱</div>';
+        list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
+          No public responses yet — be the first! 🌱</div>`;
         return;
       }
 
       list.innerHTML = '';
       [...consented].reverse().forEach((row, idx) => {
-        const name = nameIdx !== -1 ? (row.c[nameIdx]?.v || 'Anonymous') : 'Anonymous';
-        const timestamp = tsIdx !== -1 ? (row.c[tsIdx]?.v || '') : '';
-        const privacyVal = privacyIdx !== -1 ? (row.c[privacyIdx]?.v || '') : 'Yes';
-        const displayName = name.trim() || 'Anonymous';
+        const rawName = nameIdx !== -1 ? (row.c[nameIdx]?.v || '') : '';
+        const displayName = rawName.trim() || 'Anonymous';
+        const tsVal = row.c[tsIdx]?.v || '';
+        const profession = professionIdx !== -1 ? (row.c[professionIdx]?.v || '') : '';
 
-        const answersHtml = answerCols.map(i => {
-          const val = row.c[i]?.v;
-          if (!val) return '';
-          return `<div class="response-answer" style="margin-bottom:0.6rem"><strong>${cols[i].label}</strong>${val}</div>`;
-        }).filter(Boolean).join('');
-
-        const privacyDisplay = privacyVal.toString().toLowerCase().includes('yes')
-          ? `<span class="privacy-tag privacy-yes">✓ Consented to display</span>`
-          : `<span class="privacy-tag privacy-no">Anonymous display</span>`;
+        // Build compact answer pills — show values only (no long labels)
+        const answerPills = answerCols
+          .map(i => ({ label: shortLabel(cols[i].label, i), val: String(row.c[i]?.v || '').trim() }))
+          .filter(a => a.val)
+          .map(a => `
+            <div style="margin-bottom:0.55rem">
+              <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--green-mid);margin-bottom:2px">${a.label}</div>
+              <div style="font-size:0.83rem;color:#2a3d30;line-height:1.5;padding-left:0.6rem;border-left:2px solid var(--green-vivid)">${a.val}</div>
+            </div>`).join('');
 
         const card = document.createElement('div');
         card.className = 'response-card';
-        card.style.animationDelay = `${idx * 0.05}s`;
+        card.style.animationDelay = `${idx * 0.04}s`;
         card.innerHTML = `
           <div class="response-card-header">
             <div class="response-avatar">${initials(displayName)}</div>
-            <div>
+            <div style="flex:1;min-width:0">
               <div class="response-name">${displayName}</div>
-              <div class="response-time">${timeAgo(timestamp)}</div>
+              <div class="response-time">${profession ? `<span style="color:var(--green-mid)">${profession}</span> · ` : ''}${timeAgo(tsVal)}</div>
             </div>
           </div>
-          ${answersHtml}
-          ${privacyDisplay}
-        `;
+          <div style="margin-top:0.75rem">${answerPills}</div>
+          <span class="privacy-tag privacy-yes" style="margin-top:0.6rem">✓ Consented to display</span>`;
         list.appendChild(card);
       });
 
     } catch (err) {
-      console.error(err);
+      console.error('Responses error:', err);
       list.innerHTML = `
         <div class="responses-error">
-          <strong>Couldn't load responses right now.</strong><br>
-          This may be because the Google Sheet isn't publicly readable yet.<br>
-          <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}" target="_blank" style="color:var(--green-mid);font-size:0.8rem;margin-top:0.5rem;display:inline-block">View the sheet directly ↗</a>
+          <strong>Couldn't load responses.</strong><br>
+          Make sure the Google Sheet is set to <em>"Anyone with the link → Viewer"</em>.<br>
+          <a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing"
+             target="_blank" style="color:var(--green-mid);font-size:0.8rem;display:inline-block;margin-top:0.5rem">
+            Open sheet to check sharing ↗
+          </a>
         </div>`;
     }
   }
 
-  // Load on page load, then refresh every 60s
   loadResponses();
   setInterval(loadResponses, 60000);
 </script>
