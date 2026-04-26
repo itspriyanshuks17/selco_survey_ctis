@@ -463,66 +463,104 @@
     padding-top: 1.8rem;
   }
 
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(22px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .criteria-section {
+    margin-bottom: 2.2rem;
+  }
+
+  .criteria-card {
+    background: linear-gradient(135deg, var(--green-deep), #144d37);
+    color: #fff;
+    border-radius: 30px;
+    padding: 2.4rem;
+    box-shadow: 0 20px 50px rgba(10, 61, 43, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .criteria-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(34, 201, 122, 0.15), transparent 70%);
+  }
+
+  .criteria-head h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--green-vivid);
+  }
+
+  .criteria-head p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem;
+  }
+
+  .criteria-item h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green-vivid);
+    margin-bottom: 0.6rem;
+    opacity: 0.9;
+  }
+
+  .criteria-item ul {
+    list-style: none;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    opacity: 0.95;
+  }
+
+  .criteria-item li {
+    margin-bottom: 0.4rem;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .criteria-item li::before {
+    content: '→';
+    color: var(--amber);
   }
 
   @media (max-width: 1080px) {
-    header.hero,
-    .question-body,
-    .guide-grid {
-      grid-template-columns: 1fr;
-    }
+    .criteria-card { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 
   @media (max-width: 720px) {
-    .topbar-inner,
-    .page-shell {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
+    .criteria-grid { grid-template-columns: 1fr; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    .hero-copy,
-    .hero-panel,
-    .question-card,
-    .control-bar {
-      border-radius: 24px;
-    }
+  @media (max-width: 1080px) {
+    header.hero, .question-body, .guide-grid { grid-template-columns: 1fr; }
+  }
 
-    .hero-panel,
-    .detail-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .question-head {
-      flex-direction: column;
-    }
-
-    .chart-picker,
-    .chart-picker select {
-      width: 100%;
-      min-width: 0;
-    }
-
-    .topbar-actions,
-    .control-actions,
-    .hero-actions {
-      width: 100%;
-    }
-
-    .topbar-actions > *,
-    .control-actions > *,
-    .hero-actions > * {
-      width: 100%;
-      justify-content: center;
-      text-align: center;
+  @media (max-width: 720px) {
+    .topbar-inner, .page-shell { padding-left: 1rem; padding-right: 1rem; }
+    .hero-copy, .hero-panel, .question-card, .control-bar { border-radius: 24px; }
+    .hero-panel, .detail-grid { grid-template-columns: 1fr; }
+    .question-head { flex-direction: column; }
+    .chart-picker, .chart-picker select { width: 100%; min-width: 0; }
+    .topbar-actions, .control-actions, .hero-actions { width: 100%; }
+    .topbar-actions > *, .control-actions > *, .hero-actions > * {
+      width: 100%; justify-content: center; text-align: center;
     }
   }
 </style>
@@ -580,6 +618,34 @@
         </article>
       </div>
     </header>
+
+    <section class="criteria-section">
+      <div class="criteria-card">
+        <div class="criteria-head">
+          <h2>Mid-Term Examination Criteria</h2>
+          <p>BT SEM-8 | GEX209 - Entrepreneurship for Engineers. Evaluation based on research depth, presentation clarity, and team participation.</p>
+        </div>
+        <div class="criteria-grid">
+          <div class="criteria-item">
+            <h4>Evaluation Rubrics (50M)</h4>
+            <ul>
+              <li>Case Study Analysis (10)</li>
+              <li>Viva (10)</li>
+              <li>Presentation Skills (15)</li>
+              <li>Attendance (15)</li>
+            </ul>
+          </div>
+          <div class="criteria-item">
+            <h4>Presentation Rules</h4>
+            <ul>
+              <li>Formal dress code is mandatory</li>
+              <li>Submit PDF copy after session</li>
+              <li>Focus on clarity and concepts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="guide-grid" aria-label="Chart guide">
       <article class="guide-card">
