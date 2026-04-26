@@ -543,6 +543,31 @@
   @media (max-width: 720px) {
     .criteria-grid { grid-template-columns: 1fr; }
   }
+  body.is-presenting .topbar { display: none; }
+  body.is-presenting .page-shell { padding-top: 2rem; }
+
+  .exit-present-btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    display: none;
+    background: var(--green-deep);
+    color: #fff;
+    border: 1px solid var(--green-vivid);
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s;
+  }
+
+  .exit-present-btn:hover { transform: scale(1.05); }
+  body.is-presenting .exit-present-btn { display: block; }
+
   @keyframes rise {
     from { opacity: 0; transform: translateY(22px); }
     to { opacity: 1; transform: translateY(0); }
@@ -566,6 +591,8 @@
 </style>
 </head>
 <body>
+  <button class="exit-present-btn" id="exitPresent">Esc · Exit Presenter Mode</button>
+
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -573,6 +600,7 @@
         <small>Live presentation dashboard</small>
       </div>
       <div class="topbar-actions">
+        <button class="solid-btn" id="startPresenting">Present</button>
         <a class="link-btn" href="index.html#survey">Back to main website</a>
         <a class="ghost-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSciApKaHmgqvtp7dT6JFr5SjvT62fwGAZjILRidL_9YwP6g/viewform" target="_blank" rel="noreferrer">Open survey form</a>
       </div>
