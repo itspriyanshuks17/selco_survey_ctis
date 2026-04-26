@@ -1,97 +1,209 @@
-# ☀️ SELCO India — *Lighting Lives, Powering Livelihoods*
+<div align="center">
 
-> *"Rural innovation succeeds when it is designed from the user's point of view — not the supplier's."*
+# ☀️ SELCO India
+## *Lighting Lives, Powering Livelihoods*
 
-A research website built by **Pitch Perfects** exploring how one social enterprise rewired the logic of rural development — and what that means for engineers who want to build things that actually matter.
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-Visit_Now-22c97a?style=for-the-badge)](https://itspriyanshuks17.github.io/selco_survey_ctis/)
+[![Dashboard](https://img.shields.io/badge/📊_Dashboard-View_Charts-f59e1a?style=for-the-badge)](https://itspriyanshuks17.github.io/selco_survey_ctis/dashboard.html)
+[![Survey](https://img.shields.io/badge/📋_Survey-Take_It-1a6645?style=for-the-badge)](https://docs.google.com/forms/d/e/1FAIpQLSciApKaHmgqvtp7dT6JFr5SjvT62fwGAZjILRidL_9YwP6g/viewform)
 
----
+*"Rural innovation succeeds when it is designed from the user's point of view — not the supplier's."*
 
-## 🔦 What Is This?
+**A live research platform by Pitch Perfects** · *Exploring how one social enterprise rewired rural development*
 
-This is a live, interactive case-study website for the course **Entrepreneurship for Engineers (GEX209)** at Ajeenkya DY Patil University, Pune.
-
-We studied **SELCO India** — a company that didn't just sell solar panels. It built an entire ecosystem: finance, training, local technicians, community trust, and livelihood creation — all woven together. The result? 30 years of durable impact in places where most development efforts failed.
-
-Our site documents that story. Completely. With real data, live survey responses, and a design worthy of the subject.
-
----
-
-## ✨ Features
-
-| Feature | What it does |
-| --- | --- |
-| 🖼️ **Image Gallery** | A cinematic photo grid bringing SELCO's communities to life |
-| 📋 **Embedded Survey** | Google Form integrated directly into the page |
-| 🔴 **Live Responses** | Pulls real-time data from Google Sheets — auto-refreshes every 60 seconds |
-| 🔒 **Privacy-Aware Display** | Only shows responses from participants who consented |
-| 📊 **Survey Dashboard** | Interactive charts with 6 chart types, per-question chart picker, animated |
-| 📱 **Fully Responsive** | Works beautifully on mobile, tablet, and desktop |
-| ✨ **Scroll Animations** | Smooth reveal effects on every section |
+</div>
 
 ---
 
-## 🗂️ Site Structure
+## 🎯 The Mission
+
+This isn't just a website — it's a **living case study** for **Entrepreneurship for Engineers (GEX209)** at Ajeenkya DY Patil University, Pune.
+
+We dissected **SELCO India** — a company that didn't just sell solar panels. They engineered an entire **ecosystem**: microfinance, technician training, community partnerships, and livelihood creation — all interwoven. The outcome? **30 years of sustained impact** where traditional development models collapsed.
+
+Our platform tells that story through:
+- 🎨 **Immersive visual storytelling**
+- 📊 **Real-time data visualization**
+- 🔴 **Live community responses**
+- 🎓 **Academic rigor meets design excellence**
+
+---
+
+## ⚡ What Makes This Different
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎨 **Design That Speaks**
+- Cinematic image gallery with hover effects
+- Scroll-triggered reveal animations
+- Custom color palette inspired by solar energy
+- Typography that balances authority & accessibility
+
+### 📊 **Data That Lives**
+- Real-time Google Sheets integration
+- Auto-refresh every 60 seconds
+- Interactive Chart.js visualizations
+- 6 chart types: Bar, Pie, Doughnut, Line, Radar, Polar
+- Per-question chart type selector
+
+</td>
+<td width="50%">
+
+### 🔒 **Privacy-First Architecture**
+- Consent-based response display
+- Anonymous participation option
+- No tracking, no cookies, no analytics
+
+### 🚀 **Zero-Dependency Stack**
+- Pure HTML5 + CSS3 + Vanilla JS
+- No React, no Vue, no build tools
+- Single-file architecture for main site
+- Works offline after first load
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🗺️ Journey Map
 
 ```
-Hero  →  Gallery  →  About  →  Problem  →  Methodology
-  →  Case Studies  →  Analysis  →  Alternatives
-    →  Recommendations  →  Team  →  Survey & Live Responses
+🏠 Hero  →  🖼️ Gallery  →  📖 About  →  ⚠️ Problem  →  🔬 Methodology
+  →  📚 Case Studies  →  🧠 Analysis  →  🔀 Alternatives
+    →  💡 Recommendations  →  👥 Team  →  📋 Survey  →  📊 Dashboard
 ```
 
-**Dashboard** (`dashboard.html`) — standalone presentation page with live charts.
+**Two Experiences:**
+- **`index.html`** — Full narrative journey with embedded survey & live responses
+- **`dashboard.html`** — Presentation-ready analytics with animated live charts
 
 ---
 
-## 👥 Team — Pitch Perfects
+## 👥 The Architects — Pitch Perfects
 
-| Name | Initials |
-| --- | --- |
-| Neha Gaikwad | NG |
-| Meghana Prathipati | MP |
-| Vaishnavi Jadhav | VJ |
-| Saylee Shelar | SS |
-| Vaibhav Gulage | VG |
-| Priyanshu Kumar Sharma | PKS |
+<div align="center">
 
-**Subject Guide:** Prof. Parmeshwari Aland
-**University:** Ajeenkya DY Patil University, Pune
-**Branch:** B.Tech IT — Cloud Technology & Information Security
-**Semester:** Sem 8 · 2025
+| 🧑‍💻 Member | 🎨 Role | 🔗 Contribution |
+|:---|:---|:---|
+| **Neha Gaikwad** | Research Lead | Case study analysis & content strategy |
+| **Meghana Prathipati** | UX Designer | Visual storytelling & layout design |
+| **Vaishnavi Jadhav** | Data Analyst | Survey design & response insights |
+| **Saylee Shelar** | Content Strategist | Narrative structure & academic copy |
+| **Vaibhav Gulage** | Frontend Engineer | Interactive components & animations |
+| **Priyanshu Kumar Sharma** | Tech Lead | Architecture, dashboard & deployment |
 
----
-
-## 🏗️ Tech Stack
-
-```
-HTML5 + CSS3 + Vanilla JS      no frameworks, no build tools
-Chart.js 4                     interactive animated charts (dashboard)
-Google Fonts (DM Serif Display + DM Sans)
-Google Forms (survey embed)
-Google Sheets gviz API (live response fetching)
-GitHub Actions (automated deployment)
-```
+</div>
 
 ---
 
-## 📁 Files
+<div align="center">
 
-```
-index.html        — the entire website (single file, self-contained)
-dashboard.html    — live survey dashboard with animated charts
-deploy.yml        — GitHub Actions workflow for Pages deployment
-README.md         — you're reading it
+📚 **Course:** Entrepreneurship for Engineers (GEX209)
+👨‍🏫 **Guide:** Prof. Parmeshwari Aland
+🏛️ **Institution:** Ajeenkya DY Patil University, Pune
+🎓 **Program:** B.Tech IT — Cloud Technology & Information Security
+📅 **Semester:** 8 · Academic Year 2024–25
+
+</div>
+
+---
+
+## 🛠️ Technology Arsenal
+
+<div align="center">
+
+| Layer | Technology | Purpose |
+|:---|:---|:---|
+| **Frontend** | HTML5 + CSS3 + Vanilla JS | Zero dependencies, maximum performance |
+| **Charts** | Chart.js 4.4.0 | Animated, responsive, 6 chart types |
+| **Typography** | DM Serif Display + DM Sans | Professional, readable, elegant |
+| **Data Source** | Google Sheets gviz API | Real-time, no backend needed |
+| **Survey** | Google Forms | Embedded, accessible, familiar UX |
+| **Hosting** | GitHub Pages | Free, fast, version-controlled |
+| **CI/CD** | GitHub Actions | Auto-deploy on every push to `main` |
+
+</div>
+
+---
+
+## 📂 Repository Structure
+
+```bash
+selco_survey_ctis/
+├── 📄 index.html          # Main site — single-file, self-contained
+├── 📊 dashboard.html      # Presentation dashboard with Chart.js
+├── 📖 README.md           # You're reading it
+└── .github/
+    └── workflows/
+        └── deploy.yml     # Automated GitHub Pages deployment
 ```
 
 ---
 
-## 📚 About SELCO India
+## 🌍 About SELCO India
 
-SELCO India was founded in **1995** by Harish Hande with a simple but radical idea: poor people are not a charity problem — they are underserved customers. With the right financing, service, and ecosystem support, rural communities can and will adopt clean energy if it genuinely improves their lives.
+<div align="center">
 
-Today SELCO has electrified **2 million+ homes**, empowered **30,000+ livelihoods**, and powered **5,900+ health facilities** — not through subsidies alone, but through deep user understanding and ecosystem design.
+**Founded 1995** by Harish Hande with one radical thesis:
 
-Learn more: [selco-india.com](https://selco-india.com)
+> *"Poor people are not a charity problem — they are underserved customers."*
+
+</div>
+
+With the right **financing**, **service networks**, and **ecosystem support**, rural communities don't just adopt clean energy — they build **sustainable livelihoods** around it.
+
+### 📈 Impact at Scale
+
+<div align="center">
+
+| Metric | Achievement |
+|:---:|:---:|
+| 🏠 Homes Electrified | **2,000,000+** |
+| 💼 Livelihoods Empowered | **30,000+** |
+| 🏥 Health Facilities Powered | **5,900+** |
+| 🎓 Schools Connected | **1,200+** |
+
+</div>
+
+Not through subsidies alone — but through **deep user understanding** and **ecosystem design thinking**.
+
+🔗 **Learn More:** [selco-india.com](https://selco-india.com)
 
 ---
 
-<p align="center">Made with 🌱 by Pitch Perfects · ADYPU · 2025</p>
+## 🤝 Contributing
+
+Found a bug? Have a feature idea?
+
+1. 🍴 Fork this repository
+2. 🌿 Create a feature branch (`git checkout -b feature/your-idea`)
+3. 💾 Commit your changes (`git commit -m 'Add your idea'`)
+4. 📤 Push to the branch (`git push origin feature/your-idea`)
+5. 🎯 Open a Pull Request
+
+---
+
+## 🙏 Acknowledgments
+
+- **SELCO India** for pioneering rural energy innovation for 30 years
+- **Prof. Parmeshwari Aland** for guidance and mentorship throughout
+- **ADYPU** for fostering entrepreneurial thinking in engineers
+- **Chart.js & Google** for the open tools that power this platform
+
+---
+
+<div align="center">
+
+### Made with 🌱 and ☕ by Pitch Perfects
+
+**Ajeenkya DY Patil University, Pune** · *2025*
+
+[![GitHub](https://img.shields.io/badge/GitHub-View_Source-181717?style=flat&logo=github)](https://github.com/itspriyanshuks17/selco_survey_ctis)
+[![Live Demo](https://img.shields.io/badge/Demo-Visit_Site-22c97a?style=flat&logo=google-chrome&logoColor=white)](https://itspriyanshuks17.github.io/selco_survey_ctis/)
+
+*If this project helped you, consider giving it a ⭐ on GitHub!*
+
+</div>
