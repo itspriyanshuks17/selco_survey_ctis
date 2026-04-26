@@ -598,18 +598,29 @@
 
   @media (max-width: 1080px) {
     header.hero, .question-body, .guide-grid { grid-template-columns: 1fr; }
+    .criteria-card { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 
   @media (max-width: 720px) {
-    .topbar-inner, .page-shell { padding-left: 1rem; padding-right: 1rem; }
-    .hero-copy, .hero-panel, .question-card, .control-bar { border-radius: 24px; }
-    .hero-panel, .detail-grid { grid-template-columns: 1fr; }
+    .topbar-inner, .page-shell { padding: 1rem; }
+    .hero-copy, .hero-panel, .question-card, .control-bar, .criteria-card { border-radius: 24px; padding: 1.5rem; }
+    .hero-panel, .detail-grid, .criteria-grid { grid-template-columns: 1fr; }
     .question-head { flex-direction: column; }
     .chart-picker, .chart-picker select { width: 100%; min-width: 0; }
-    .topbar-actions, .control-actions, .hero-actions { width: 100%; }
+    .topbar-actions, .control-actions, .hero-actions { width: 100%; gap: 0.5rem; }
     .topbar-actions > *, .control-actions > *, .hero-actions > * {
-      width: 100%; justify-content: center; text-align: center;
+      width: 100%; justify-content: center; text-align: center; padding: 0.7rem; font-size: 0.85rem;
     }
+    .brand a { font-size: 1rem; }
+    h1 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 480px) {
+    .page-shell { padding: 0.5rem; }
+    h1 { font-size: 1.8rem; }
+    .hero-copy p { font-size: 0.9rem; }
+    .metric-value { font-size: 1.8rem; }
+    .exit-present-btn { top: 1rem; right: 1rem; padding: 0.5rem 1rem; font-size: 0.75rem; }
   }
 </style>
 </head>
