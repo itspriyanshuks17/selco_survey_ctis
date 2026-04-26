@@ -1,7 +1,7 @@
 (function () {
   const SHEET_ID = '1BpG8aqqrNogPZV9ra8f7eR5zdsilRQOSNlwFzr5vb_M';
-  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
-  const SHEET_EDIT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing`;
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=1230374295`;
+  const SHEET_EDIT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit#gid=1230374295`;
 
   const STOPWORDS = new Set([
     'about', 'after', 'again', 'also', 'among', 'because', 'before', 'being',
