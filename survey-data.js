@@ -330,23 +330,35 @@
     }
 
     if (kind === 'categorical') {
-      const counts = new Map();
-      values.forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
-      series = buildSeriesFromCounts(counts, values.length);
+      const counts = new Map(); // normalized -> count
+      const displays = new Map(); // normalized -> original casing
+      values.forEach((value) => {
+        const norm = normalizeText(value);
+        counts.set(norm, (counts.get(norm) || 0) + 1);
+        if (!displays.has(norm)) displays.set(norm, value.trim());
+      });
+      const categoricalMap = new Map();
+      counts.forEach((count, norm) => categoricalMap.set(displays.get(norm), count));
+      series = buildSeriesFromCounts(categoricalMap, values.length);
       denominator = values.length;
       metricLabel = 'responses';
     }
 
     if (kind === 'multi-select') {
       const counts = new Map();
+      const displays = new Map();
       let totalSelections = 0;
       values.forEach((value) => {
         splitChoiceTokens(value).forEach((token) => {
-          counts.set(token, (counts.get(token) || 0) + 1);
+          const norm = normalizeText(token);
+          counts.set(norm, (counts.get(norm) || 0) + 1);
+          if (!displays.has(norm)) displays.set(norm, token);
           totalSelections += 1;
         });
       });
-      series = buildSeriesFromCounts(counts, totalSelections);
+      const multiMap = new Map();
+      counts.forEach((count, norm) => multiMap.set(displays.get(norm), count));
+      series = buildSeriesFromCounts(multiMap, totalSelections);
       denominator = totalSelections;
       metricLabel = 'selections';
     }
