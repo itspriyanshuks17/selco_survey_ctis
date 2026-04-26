@@ -64,7 +64,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 8rem 2.5rem 5rem;
+    padding: 3rem 2.5rem 5rem;
     position: relative;
     overflow: hidden;
   }
@@ -779,45 +779,12 @@
     .analysis-num { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
   }
 
-  .mobile-bottom-nav {
-    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-    display: none; width: 90%; max-width: 380px;
-    background: rgba(10, 61, 43, 0.9); backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
-    padding: 0.6rem 1rem; z-index: 1000;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.4);
-    justify-content: space-around; align-items: center;
-    animation: fadeUp 0.6s ease both;
-  }
-  .mobile-bottom-nav .nav-item {
-    color: #fff; text-decoration: none; font-size: 0.72rem; font-weight: 500;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    opacity: 0.7; transition: opacity 0.2s;
-  }
-  .mobile-bottom-nav .nav-item:hover, .mobile-bottom-nav .nav-item.active { opacity: 1; color: var(--green-vivid); }
-  .mobile-bottom-nav .nav-item svg { width: 18px; height: 18px; }
 
-  @media (max-width: 600px) {
-    .mobile-bottom-nav { display: flex; }
-  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#">SELCO India · Survey</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#cases">Case Studies</a></li>
-    <li><a href="#analysis">Analysis</a></li>
-    <li><a href="#recommendation">Recommendations</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="presentation.html">Presentation</a></li>
-    <li><a href="#survey" style="color:var(--green-vivid)">Survey</a></li>
-  </ul>
-</nav>
+<!-- NAV REMOVED -->
 
 <!-- HERO -->
 <section id="hero">
@@ -1377,7 +1344,7 @@
       <div class="survey-right reveal">
         <div class="responses-header">
           <h3 style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--green-deep)">Live Responses</h3>
-          <span class="response-count-badge" id="responseCountBadge">Loading…</span>
+          <span class="response-count-badge" id="responseCountBadge">12 responses</span>
         </div>
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
           Responses from people who've shared their views on SELCO's rural energy model. Only responses from participants who consented to public display are shown.
@@ -1470,17 +1437,11 @@
     } catch (err) {
       console.error('Responses error:', err);
       list.innerHTML = `
-        <div class="responses-error">
-          <div class="err-title">⚙️ One quick setup step needed</div>
-          Your Google Sheet responses will appear here automatically — you just need to make the sheet public once:
-          <ol>
-            <li>Open your sheet: <a href="${window.SELCOSurveyData.SHEET_EDIT_URL}" target="_blank">click here ↗</a></li>
-            <li>Click <strong>Share</strong> (top-right button)</li>
-            <li>Under "General access", change to <strong>Anyone with the link</strong></li>
-            <li>Set role to <strong>Viewer</strong> and click <strong>Done</strong></li>
-            <li>Come back and hit <strong>↺ Refresh</strong> below</li>
-          </ol>
-          Responses will then load live and auto-refresh every 60 seconds. 🌱
+        <div style="text-align:center; padding:3rem; background:rgba(255,255,255,0.03); border-radius:24px; border:1px dashed rgba(255,255,255,0.1)">
+          <div style="font-size:2rem; margin-bottom:1rem">📊</div>
+          <h3 style="color:#fff; margin-bottom:0.5rem">Ready for your data</h3>
+          <p style="font-size:0.9rem; opacity:0.7; max-width:400px; margin:0 auto">Once you share your Google Sheet (Anyone with link -> Viewer), your live responses and charts will appear here automatically.</p>
+          <a href="${window.SELCOSurveyData.SHEET_EDIT_URL}" target="_blank" class="solid-btn" style="display:inline-block; margin-top:1.5rem; text-decoration:none">Open Sheet to Share</a>
         </div>`;
     }
   }
@@ -1488,23 +1449,6 @@
   loadResponses();
   setInterval(loadResponses, 60000);
 </script>
-  <nav class="mobile-bottom-nav">
-    <a href="#hero" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-      Home
-    </a>
-    <a href="#survey" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-      Survey
-    </a>
-    <a href="#analysis" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8v8m-4-5v5M8 11v5m4-11V3m0 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
-      Impact
-    </a>
-    <a href="presentation.html" class="nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-      Present
-    </a>
-  </nav>
+  <!-- NAVIGATION REMOVED -->
 </body>
 </html>
