@@ -2,7 +2,9 @@
   const state = {
     charts: new Map(),
     data: null,
-    refreshMs: 60000
+    refreshMs: 60000,
+    slideMode: false,
+    currentSlide: 0
   };
 
   const typeLabels = {
@@ -404,6 +406,7 @@
     });
 
     renderQuestionJump(data.questions);
+    updateSlideUI();
   }
 
   async function refreshDashboard() {
@@ -433,6 +436,58 @@
     renderQuestions(state.data);
   }
 
+  function toggleSlideMode() {
+    state.slideMode = !state.slideMode;
+    const btn = document.getElementById('toggleSlideMode');
+    const grid = document.getElementById('questionGrid');
+    
+    if (state.slideMode) {
+      grid.classList.add('slide-mode');
+      btn.textContent = 'Grid View';
+      state.currentSlide = 0;
+    } else {
+      grid.classList.remove('slide-mode');
+      btn.textContent = 'Slide View';
+      document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active-slide'));
+    }
+    updateSlideUI();
+  }
+
+  function changeSlide(delta) {
+    const cards = document.querySelectorAll('.question-card');
+    state.currentSlide = Math.max(0, Math.min(cards.length - 1, state.currentSlide + delta));
+    updateSlideUI();
+  }
+
+  function updateSlideUI() {
+    const cards = document.querySelectorAll('.question-card');
+    const indicator = document.getElementById('slideIndicator');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    if (!cards || !cards.length) {
+      if (indicator) indicator.textContent = '0 / 0';
+      return;
+    }
+
+    if (state.slideMode) {
+      cards.forEach((card, i) => {
+        card.classList.toggle('active-slide', i === state.currentSlide);
+      });
+      indicator.textContent = `${state.currentSlide + 1} / ${cards.length}`;
+      prevBtn.disabled = state.currentSlide === 0;
+      nextBtn.disabled = state.currentSlide === cards.length - 1;
+      
+      // Auto scroll to top of card when changing slide
+      const controlBar = document.querySelector('.control-bar');
+      if (controlBar) window.scrollTo({ top: controlBar.offsetTop - 20, behavior: 'smooth' });
+    } else {
+      indicator.textContent = `Total: ${cards.length}`;
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+  }
+
   function togglePresenterMode(active) {
     if (active) {
       document.body.classList.add('is-presenting');
@@ -455,15 +510,32 @@
     document.getElementById('startPresenting').addEventListener('click', () => togglePresenterMode(true));
     document.getElementById('exitPresent').addEventListener('click', () => togglePresenterMode(false));
 
+    document.getElementById('toggleSlideMode').addEventListener('click', toggleSlideMode);
+    document.getElementById('prevSlide').addEventListener('click', () => changeSlide(-1));
+    document.getElementById('nextSlide').addEventListener('click', () => changeSlide(1));
+
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && document.body.classList.contains('is-presenting')) {
         togglePresenterMode(false);
+      }
+      if (state.slideMode) {
+        if (event.key === 'ArrowLeft') changeSlide(-1);
+        if (event.key === 'ArrowRight') changeSlide(1);
       }
     });
 
     document.getElementById('questionJump').addEventListener('change', (event) => {
       if (!event.target.value) return;
-      document.getElementById(event.target.value)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (state.slideMode) {
+        const cards = document.querySelectorAll('.question-card');
+        const index = [...cards].findIndex(c => c.id === event.target.value);
+        if (index !== -1) {
+          state.currentSlide = index;
+          updateSlideUI();
+        }
+      } else {
+        document.getElementById(event.target.value)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 
