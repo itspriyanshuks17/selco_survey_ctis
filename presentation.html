@@ -792,6 +792,29 @@
       </div>
     </header>
 
+    <div class="control-bar">
+      <div class="control-copy">
+        <h2 class="control-label">Interactive Analysis</h2>
+        <p id="dashboardStatus" data-tone="neutral">Live dashboard is up to date.</p>
+      </div>
+      <div class="control-actions">
+        <div class="slide-nav">
+          <button class="slide-btn" id="prevSlide" title="Previous Question" disabled>&larr;</button>
+          <span id="slideIndicator">Total: 0</span>
+          <button class="slide-btn" id="nextSlide" title="Next Question" disabled>&rarr;</button>
+        </div>
+        <div class="chart-picker">
+          <span>Question Navigation</span>
+          <select id="questionJump">
+            <option value="">Jump to a question</option>
+          </select>
+        </div>
+        <button class="ghost-btn" id="toggleSlideMode">Slide View</button>
+        <button class="ghost-btn" id="toggleDataView">View Spreadsheet</button>
+      </div>
+    </div>
+
+
 
 
     <section class="guide-grid" aria-label="Chart guide">
