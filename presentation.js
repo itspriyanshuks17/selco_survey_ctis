@@ -264,7 +264,7 @@
               color: 'rgba(10, 61, 43, 0.08)'
             }
           }
-        } : resolvedType === 'radar' ? {
+        } : (resolvedType === 'radar' || resolvedType === 'polarArea') ? {
           r: {
             beginAtZero: true,
             angleLines: { color: 'rgba(10, 61, 43, 0.08)' },
